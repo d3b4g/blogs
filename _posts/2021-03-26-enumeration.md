@@ -3,288 +3,205 @@ layout: post
 title:  "Active Directory Red Team - Enumeration"
 date:   2021-03-26 14:07:20
 categories: [Active Directory Red Team]
-excerpt: "A comprehensive guide to enumerating Microsoft Active Directory with PowerView, covering domains, users, groups, computers, ACLs, GPOs, trusts, and policies." 
-image:
-  feature: adlabs.png
+excerpt: "In this module I will cover how you can enumerate Microsoft Active Directory with Powerview and gather critical information about the Active Directory and its components." 
+
 comments: true
 ---
 
-# Active Directory Red Team: Enumeration Techniques
 
-Enumeration is the cornerstone of any successful red team engagement. This guide covers how to effectively enumerate Microsoft Active Directory using PowerView to gather critical information about AD components. PowerView provides numerous commands for enumeration and management, and I'll demonstrate the most valuable ones I regularly use in AD assessments.
+### Active Directory Red Team (Enumeration)
 
-> **Prerequisites:** If you haven't set up your Red Team lab environment yet, please read my previous guide: [RedTeam Lab Setup](https://ptrace.net/articles/2021-02/ad-redteam-intro)
+Enumeration is the key for any successful engagement, in this post I will cover how you can enumerate Microsoft Active Directory with Powerview and gather critical information about the Active Directory and its components. Powerview includes many commands to enumerate and manage the active directory. I will demonstrate the commands I mostly use in Active Directory assessments.
 
-## What You'll Learn
+> If you have not read my previous post about RedTeam Lab setup, please read [RedTeam Lab Setup]( https://ptrace.net/articles/2021-02/ad-redteam-intro)
 
-In this comprehensive guide, we'll cover:
+In this post im going to cover the following.
 
-- [Enumerating Domains](#enumerating-domains)
-- [Enumerating AD Users](#enumerating-ad-users)
-- [Enumerating AD Groups](#enumerating-ad-groups)
-- [Enumerating AD Computers](#enumerating-ad-computers)
-- [Enumerating Domain ACLs](#enumerating-domain-acls)
-- [Enumerating Group Policy Objects (GPOs)](#enumerating-group-policy-objects)
-- [Enumerating AD Trusts](#enumerating-ad-trusts)
-- [Enumerating Domain Policies](#enumerating-domain-policies)
+-    Enumerating Domain
+-    Enumerating AD Users
+-    Enumerating AD Groups
+-    Enumerating AD Computers
+-    Enumerating Domain ACLs with Powerview
+-    Enumerating Group Policy Objects (GPOs)
+-    Enumerating AD Trusts
+-    Enumerating Domain policy
 
-Let's dive into each section and explore the powerful enumeration techniques at our disposal.
 
----
+#### Enumerating Domain
 
-## Enumerating Domains {#enumerating-domains}
+##### Description 
+In Active Directory terms, a domain is an area of a network organized by a single authentication database. It is a logical grouping of objects on a network. In Active Directory, domains are controlled by the domain controller.
 
-### What is an AD Domain?
+> Get-NetDomain 
 
-In Active Directory terms, a domain is a network area organized by a single authentication database. It represents a logical grouping of objects on a network, controlled by domain controllers.
+This command will give information about the current domain controller.
 
-### Key Commands
+![source-01](/img/enu1.PNG){: .align-left}
 
-```powershell
-# Get information about the current domain controller
-Get-NetDomain
-```
+**-Domain** parameter in **Get-Net-Domain** cmdlet allow you to specify domain name you want enumerate.
 
-![Domain information output]({{ site.url }}/img/enu1.PNG)
+![source-01](/img/enu2.PNG){: .align-left}
 
-You can also specify a particular domain to enumerate using the `-Domain` parameter:
 
-```powershell
-# Enumerate a specific domain
-Get-NetDomain -Domain example.local
-```
+#### Enumerating AD Users
 
-![Domain parameter example]({{ site.url }}/img/enu2.PNG)
+##### Description
+A user object in AD is used to represent a real user in an organizational network environment.
 
----
+ > Get-NetUser
+ 
+This command enumerates the users and dump usefull informations about the user.
 
-## Enumerating AD Users {#enumerating-ad-users}
+![source-01](/img/enu3.PNG){: .align-left}
 
-### What are AD User Objects?
+The output of the Get-Net User cmdlet can be a bit messy, you can PIPE Get-Net User cmdlet and pass to **SELECT-OBJECT** cmdlet and output desired results.
 
-User objects in Active Directory represent real users in an organizational network environment. They contain critical information about identities in your organization.
+![source-01](/img/enu4.PNG){: .align-left}
 
-### Key Commands
+> Get-Net User -SPN
 
-```powershell
-# Enumerate all users in the domain
-Get-NetUser
-```
+This command enumerates kerberoastable users. **Kerberoasting** abuses traits of the Kerberos protocol to harvest password hashes for Active Directory user accounts with servicePrincipalName. This is usualy an entry point for pentesters.
 
-![User enumeration output]({{ site.url }}/img/enu3.PNG)
+![source-01](/img/enu18.PNG){: .align-left}
 
-The output from `Get-NetUser` can be overwhelming. You can pipe the results to `Select-Object` to display only the information you need:
 
-```powershell
-# Filter user information for readability
-Get-NetUser | Select-Object name, samaccountname, description
-```
+#### Enumerating AD Groups
 
-![Filtered user output]({{ site.url }}/img/enu4.PNG)
+##### Description
+The Active Directory groups are a collection of Active Directory objects. The group can include users, computers, other groups, and other AD objects.
 
-#### Finding Kerberoastable Users
+> Get-NetGroupMembers
 
-Kerberoasting is a popular attack technique that targets service accounts:
+This command allow you to enumerate group membership from active directory, some of the usefull groupmemberships to enumerate are 
 
-```powershell
-# Enumerate users with SPNs (Service Principal Names)
-Get-NetUser -SPN
-```
+- Domain Admin Group
+- Enterprise Admin Group
+- Account operator Group
+- Server Operator Group
 
-![Kerberoastable users]({{ site.url }}/img/enu18.PNG)
+![source-01](/img/enu5.PNG){: .align-left}
 
-> **Security Note:** Kerberoasting abuses the Kerberos protocol to harvest password hashes for AD accounts with SPNs. This is often an entry point for penetration testers.
+#### Enumerating AD Computers
 
----
+##### Description
 
-## Enumerating AD Groups {#enumerating-ad-groups}
+Computer objects are used to uniquely identify and manage Windows-based domain clients within Active Directory. They are used to specify computer names, locations, properties and access rights.
 
-### What are AD Groups?
+> Get-NetComputer
 
-Active Directory groups are collections of AD objects that can include users, computers, other groups, and various AD objects. They're essential for permission management.
+This command enumerate Active Directory computer objects, display bunch of useful informations.
 
-### Key Commands
+![source-01](/img/enu8.PNG){: .align-left}
 
-```powershell
-# Enumerate group memberships
-Get-NetGroupMembers -GroupName "Domain Admins"
-```
+As you can see **Get-NetComputer** cmdlet gives a lot of information you can always use the  pipe cmdlet in powershell to get desired results.
 
-![Group membership]({{ site.url }}/img/enu5.PNG)
+![source-01](/img/enu9.PNG){: .align-left}
 
-### Critical Groups to Enumerate
 
-When performing AD enumeration, focus on these high-value groups:
+#### Enumerating Domain ACLs 
 
-- **Domain Admins** - Full control of the domain
-- **Enterprise Admins** - Control across the entire forest
-- **Account Operators** - Can manage user accounts
-- **Server Operators** - Can manage domain servers
+##### Description:
 
----
+Access Control Lists are the settings that define what objects get access to other objects in Active Directory. 
+There are two types of ACLs:
 
-## Enumerating AD Computers {#enumerating-ad-computers}
+- **Discretionary access control list (DACL):** This defines the security principals which are either granted or denied access to a securable object.
 
-### What are AD Computer Objects?
+- **System access control list (SACL):** This grants power to administrators to log the access attempts made to secured objects.
 
-Computer objects uniquely identify and manage Windows-based domain clients within Active Directory. They specify computer names, locations, properties, and access rights.
+![source-01](/img/enu10.PNG){: .align-left}
 
-### Key Commands
+This cmdlet outputs the list of ACEs applied to the object. 
 
-```powershell
-# Enumerate all computer objects
-Get-NetComputer
-```
+![source-01](/img/enu15.PNG){: .align-left}
 
-![Computer objects]({{ site.url }}/img/enu8.PNG)
 
-The `Get-NetComputer` cmdlet provides extensive information. Use PowerShell's piping capabilities to filter for specific details:
+#### Enumerating Group Policy Objects (GPOs)
 
-```powershell
-# Filter for specific operating systems
-Get-NetComputer | Where-Object {$_.operatingsystem -like "*Server 2016*"}
-```
+##### Description
+Group Policy Objects are Active Directory containers used to store groupings of policy settings. These objects are then linked to specific sites, domains, or organizational units (OUs).
 
-![Filtered computer objects]({{ site.url }}/img/enu9.PNG)
+> **Get-NetGPO** 
 
----
+This command enumerate of all current GPOs in a given domain.
 
-## Enumerating Domain ACLs {#enumerating-domain-acls}
+![source-01](/img/enu6.PNG){: .align-left}
 
-### Understanding ACLs in Active Directory
+If you want check GPO's applied to a specific computer you can use the below Powerview command
 
-Access Control Lists define what objects can access other objects in Active Directory. They're crucial for understanding permission structures and identifying potential privilege escalation paths.
+>**Get-DomainGPO -ComputerIdentity  "ComputerName"**
 
-### Types of ACLs
+#### Enumerating AD Trusts
+ 
+##### Description:
+ 
+Active Directory trust is a secured, authentication communication channel between entities, such as AD DS domains, forests. Trusts enable you to grant access to resources to users, groups, and computers across entities.
 
-- **Discretionary Access Control Lists (DACLs)**: Define which security principals are granted or denied access to objects
-- **System Access Control Lists (SACLs)**: Allow administrators to log access attempts made to secured objects
+**Trusts Direction:**
+- **Two-way trust (Bi-directional):** Users from Domain A can access resources in Domain B
+and vice versa.
 
-### Key Commands
+- **One-way trust (Unidirectional):** Users in the trusted domain can access resources in the
+trusting domain but the reverse is not true
 
-```powershell
-# Get ACLs for a specific object
-Get-ObjectAcl -SamAccountName "Domain Admins" -ResolveGUIDs
-```
+**Trusts Transitivity:**
 
-![ACL enumeration]({{ site.url }}/img/enu10.PNG)
+- **Parent-child trust:** It is created automatically between the new domain and the domain
+that precedes it in the namespace hierarchy, whenever a new domain is added in a tree.
 
-This command outputs the list of Access Control Entries (ACEs) applied to the object:
+- **Tree-root trust:** It is created automatically whenever a new domain tree is
+added to a forest root. This trust is always two-way transitive.
 
-![ACE details]({{ site.url }}/img/enu15.PNG)
+**External Trusts:** Between two domains in different forests when forests do not have a trust
+relationship. It can be one-way or two-way and is nontransitive.
 
----
 
-## Enumerating Group Policy Objects {#enumerating-group-policy-objects}
+> Get-NetDomainTrust 
 
-### What are GPOs?
+This command enumerate all domain trusts including parent, child and external trust.
 
-Group Policy Objects are Active Directory containers that store groupings of policy settings. These objects are linked to specific sites, domains, or organizational units (OUs).
+![source-01](/img/enu11.PNG){: .align-left}
 
-### Key Commands
+**Get-NetForestDomain | Get-NetDomainTrust**
 
-```powershell
-# Enumerate all GPOs in the current domain
-Get-NetGPO
-```
+Piping the result of **Get-NetforestDomain** to **Get-NetDomainTrust**  enumerate all the trusts of all the domains found 
 
-![GPO enumeration]({{ site.url }}/img/enu6.PNG)
+![source-01](/img/enu12.PNG){: .align-left}
 
-To check GPOs applied to a specific computer, use:
+We can also enumerate this information with .NET class "Domain.GetAllTrustRelationships"
 
-```powershell
-# Check GPOs applied to a specific computer
-Get-DomainGPO -ComputerIdentity "WORKSTATION01"
-```
+![source-01](/img/enu14.PNG){: .align-left}
 
----
 
-## Enumerating AD Trusts {#enumerating-ad-trusts}
+#### Enumerating Domain Policy
 
-### Understanding AD Trusts
+##### Description
 
-Active Directory trusts are secured authentication channels between entities like AD domains and forests. They enable access to resources across different domains and forests.
+The domain password policy allows you to specify a range of password security options, including how frequently users change their passwords
 
-### Trust Types and Directions
+> Get-DomainPolicy 
 
-#### Trust Directions
-- **Two-way trust (Bi-directional)**: Users from Domain A can access resources in Domain B and vice versa
-- **One-way trust (Unidirectional)**: Users in the trusted domain can access resources in the trusting domain, but not the reverse
+Returns the default domain policy or the domain controller policy for the current domain or a specified domain/domain controller.
 
-#### Trust Types
-- **Parent-child trust**: Created automatically between a new domain and its parent
-- **Tree-root trust**: Created automatically when a new domain tree is added to a forest root
-- **External trusts**: Between domains in different forests without forest trust relationships
+![source-01](/img/enu13.PNG){: .align-left}
 
-### Key Commands
+> (Get-DomainPolicy)."KerberosPolicy" 
 
-```powershell
-# Enumerate all domain trusts
-Get-NetDomainTrust
-```
+This command enumerates the Kerberos policy, this information will be very useful in Kerberos attacks.
 
-![Domain trusts]({{ site.url }}/img/enu11.PNG)
+> (Get-DomainPolicy)."SystemAccess" 
 
-To enumerate trusts across all domains in a forest:
+This command enumerate default SystemAccess policy or password policy.
 
-```powershell
-# Enumerate trusts across all domains
-Get-NetForestDomain | Get-NetDomainTrust
-```
+#### Conclusion
 
-![Forest domain trusts]({{ site.url }}/img/enu12.PNG)
+In this post, I covered how you can collect important information about Active Directory and its components using PowerView for initial compromise.
 
-You can also use .NET classes directly:
+#### Refference / Resources 
 
-```powershell
-# Using .NET classes for trust enumeration
-([System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()).GetAllTrustRelationships()
-```
-
-![.NET trust relationships]({{ site.url }}/img/enu14.PNG)
-
----
-
-## Enumerating Domain Policies {#enumerating-domain-policies}
-
-### Why Domain Policies Matter
-
-Domain policies, especially password policies, provide critical security information. Understanding these policies can reveal potential weaknesses in authentication mechanisms.
-
-### Key Commands
-
-```powershell
-# Get domain policy information
-Get-DomainPolicy
-```
-
-![Domain policy]({{ site.url }}/img/enu13.PNG)
-
-For specific policy types:
-
-```powershell
-# Get Kerberos policy settings
-(Get-DomainPolicy)."KerberosPolicy"
-
-# Get password policy settings
-(Get-DomainPolicy)."SystemAccess"
-```
-
-> **Attacker Insight:** Kerberos policy information is particularly valuable for planning Kerberos-based attacks.
-
----
-
-## Conclusion
-
-Effective enumeration is the foundation of successful Active Directory penetration testing and red team operations. PowerView provides a comprehensive toolkit for gathering critical information about AD components, helping you identify potential security weaknesses and attack vectors.
-
-By methodically enumerating domains, users, groups, computers, ACLs, GPOs, trusts, and policies, you can build a complete picture of the AD environment and identify the most promising paths for privilege escalation and lateral movement.
-
-## References & Resources
-
-- [PowerSploit Documentation](https://powersploit.readthedocs.io/en/latest/Recon/Get-ForestDomain/)
-- [SpecterOps: A Red Teamer's Guide to GPOs and OUs](https://posts.specterops.io/a-red-teamers-guide-to-gpos-and-ous-f0d03976a31e)
-- [Microsoft: Active Directory PowerShell Documentation](https://docs.microsoft.com/en-us/powershell/module/addsadministration/get-adtrust?view=win10-ps)
-- [Microsoft: Active Directory Domain Services](https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/active-directory-domain-services)
-- [MSMVPS: Active Directory Trusts](https://blogs.msmvps.com/acefekay/2016/11/02/active-directory-trusts/)
+- [Powersploit](https://powersploit.readthedocs.io/en/latest/Recon/Get-ForestDomain/) - PowerSploit Documentation
+- [Specterops](https://posts.specterops.io/a-red-teamers-guide-to-gpos-and-ous-f0d03976a31e) - A Red Teamer’s Guide to GPOs and OUs
+- [Microsoft](https://docs.microsoft.com/en-us/powershell/module/addsadministration/get-adtrust?view=win10-ps) - Active Directory PowerShell Documentation
+- [Microsoft](https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/active-directory-domain-services) - Active Directory Documentation
+- [msmvps.com](https://blogs.msmvps.com/acefekay/2016/11/02/active-directory-trusts/) - Active Directory Trusts
 

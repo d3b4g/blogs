@@ -6,8 +6,7 @@
 title: ptrace.net
 email: shabnoon@ptrace.net
 description: Random rambles of a infosec 
-url: https://d3b4g.github.io/blogs
-# url: http://localhost:4008
+url: https://ptrace.net
 baseurl: ""
 keywords: ["blog", "jekyll"]
 
