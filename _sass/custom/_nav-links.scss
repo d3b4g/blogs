@@ -1,0 +1,144 @@
+// Enhanced Navigation Links
+.nav {
+  margin-top: 1.5em;
+  
+  .nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    
+    @include media-query($medium-screen) {
+      align-items: flex-end;
+    }
+  }
+  
+  .nav-item {
+    display: block;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    
+    &:after {
+      display: none; // Remove the slash separator
+    }
+    
+    a {
+      display: flex;
+      align-items: center;
+      padding: 10px 15px;
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      color: #555;
+      font-size: 1rem;
+      font-weight: 500;
+      text-decoration: none;
+      text-transform: capitalize;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      
+      &:before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: #F36170;
+        transition: width 0.3s ease;
+      }
+      
+      i {
+        margin-right: 8px;
+        font-size: 1.1rem;
+        transition: transform 0.3s ease;
+      }
+      
+      &:hover {
+        background-color: #F36170;
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+        
+        i {
+          transform: scale(1.2);
+        }
+        
+        &:before {
+          width: 100%;
+        }
+      }
+      
+      // Active state styling
+      &.active {
+        background-color: #F36170;
+        color: white;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+        
+        i {
+          transform: scale(1.1);
+        }
+      }
+    }
+    
+    // Category count badge
+    .category-count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 20px;
+      height: 20px;
+      padding: 0 6px;
+      margin-left: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      background-color: #e9ecef;
+      color: #555;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+    
+    a:hover .category-count {
+      background-color: white;
+      color: #F36170;
+    }
+  }
+}
+
+// Dark mode styles
+body.dark-mode {
+  .nav {
+    .nav-item {
+      a {
+        background-color: #333;
+        color: #e0e0e0;
+        
+        &:hover {
+          background-color: #F36170;
+          color: white;
+          box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        &.active {
+          background-color: #F36170;
+        }
+        
+        &:before {
+          background-color: #F36170;
+        }
+      }
+      
+      .category-count {
+        background-color: #444;
+        color: #ddd;
+      }
+      
+      a:hover .category-count {
+        background-color: white;
+        color: #F36170;
+      }
+    }
+  }
+} 

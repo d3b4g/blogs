@@ -2,66 +2,338 @@
 layout: default
 ---
 
-<a class="btn" href= "{{ site.url }}/" >
-  Home
-</a>
-{% if page.image.feature %}
-<div class="post-image-feature">
-  <img class="feature-image" src=
-  {% if page.image.feature contains 'https' or page.image.feature contains 'http' %}
-  "{{ page.image.feature }}"
-  {% else %}
-  "{{ site.url }}/img/{{ page.image.feature }}"
+<div class="single-post-container">
+  <a class="btn home-btn" href="{{ site.url }}{{ site.baseurl }}/">
+    <i class="fa fa-home"></i> Home
+  </a>
+  
+  {% if page.image.feature %}
+  <div class="post-image-feature">
+    <img class="feature-image" src=
+    {% if page.image.feature contains 'https' or page.image.feature contains 'http' %}
+    "{{ page.image.feature }}"
+    {% else %}
+    "{{ site.url }}{{ site.baseurl }}/img/{{ page.image.feature }}"
+    {% endif %}
+    alt="{{ page.title | escape }} feature image">
+
+    {% if page.image.credit %}
+    <span class="image-credit">Photo Credit: <a href="{{ page.image.creditlink }}">{{ page.image.credit }}</a></span>
+    {% endif %}
+  </div>
   {% endif %}
-  alt="{{ page.title | escape }} feature image">
 
-  {% if page.image.credit %}
-  <span class="image-credit">Photo Credit: <a href="{{ page.image.creditlink }}">{{ page.image.credit }}</a></span>
+  <div id="post">
+    <header class="post-header">
+      <h1 title="{{ page.title | escape }}">{{ page.title }}</h1>
+      <div class="post-meta">
+        <span class="post-date">
+          {{ page.date | date: "%-d %b %Y" | upcase }}
+        </span>
+        •
+        {% include read_time.html %}
+        
+        {% if page.categories.size > 0 %}
+        •
+        <div class="post-categories">
+          {% for cat in page.categories %}
+            <span class="category-badge category-{{ cat | downcase }}">{{ cat }}</span>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+    </header>
+
+    <article class="post-content">
+      {{ content }}
+    </article>
+  </div>
+
+  <div class="share-buttons">
+    <h6>Share on: </h6>
+    <ul>
+      <li>
+        <a href="https://twitter.com/intent/tweet?text={{ site.url }}{{ site.baseurl }}{{ page.url }}" class="twitter btn" title="Share on Twitter"><i class="fa fa-twitter"></i><span> Twitter</span></a>
+      </li>
+      <li>
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{ site.url }}{{ site.baseurl }}{{ page.url }}" class="facebook btn" title="Share on Facebook"><i class="fa fa-facebook"></i><span> Facebook</span></a>
+      </li>
+      <li>
+        <a href="https://news.ycombinator.com/submitlink?u={{ site.url }}{{ site.baseurl }}{{ page.url }}" class="hacker-news btn" title="Share on Hacker News"><i class="fa fa-hacker-news"></i><span> Hacker News</span></a>
+      </li>
+      <li>
+        <a href="https://www.reddit.com/submit?url={{ site.url }}{{ site.baseurl }}{{ page.url }}" class="reddit btn" title="Share on Reddit"><i class="fa fa-reddit"></i><span> Reddit</span></a>
+      </li>
+    </ul>
+  </div>
+
+  {% if site.owner.disqus-shortname and page.comments == true %}
+  <div id="disqus_thread"></div>
+  {% include disqus.html %}
   {% endif %}
-</div><!-- /.image-wrap -->
-{% endif %}
-
-
-<div id="post">
-  <header class="post-header">
-    <h1 title="{{ page.title | escape }}">{{ page.title }}</h1>
-    <span class="post-meta">
-      <span class="post-date">
-        {{ page.date | date: "%-d %b %Y" | upcase }}
-      </span>
-      •
-      {% include read_time.html %}
-    </span>
-
-  </header>
-
-  <article class="post-content">
-    {{ content }}
-  </article>
 </div>
 
-<div class="share-buttons">
-  <h6>Share on: </h6>
-  <ul>
-    <li>
-      <a href="https://twitter.com/intent/tweet?text={{ site.url }}{{ page.url }}" class="twitter btn" title="Share on Twitter"><i class="fa fa-twitter"></i><span> Twitter</span></a>
-    </li>
-    <li>
-      <a href="https://www.facebook.com/sharer/sharer.php?u={{ site.url }}{{ page.url }}" class="facebook btn" title="Share on Facebook"><i class="fa fa-facebook"></i><span> Facebook</span></a>
-    </li>
-    <li>
-      <a href="https://plus.google.com/share?url={{ site.url }}{{ page.url }}" class="google-plus btn" title="Share on Google Plus"><i class="fa fa-google-plus"></i><span> Google+</span></a>
-    </li>
-    <li>
-      <a href="https://news.ycombinator.com/submitlink?u={{ site.url }}{{ page.url }}" class="hacker-news btn" title="Share on Hacker News"><i class="fa fa-hacker-news"></i><span> Hacker News</span></a>
-    </li>
-    <li>
-      <a href="https://www.reddit.com/submit?url={{ site.url }}{{ page.url }}" class="reddit btn" title="Share on Reddit"><i class="fa fa-reddit"></i><span> Reddit</span></a>
-    </li>
-  </ul>
-</div><!-- end share-buttons -->
-
-{% if site.owner.disqus-shortname and page.comments == true %}
-<div id="disqus_thread"></div>
-{% include disqus.html %}
-{% endif %}
+<style>
+  .single-post-container {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+    padding: 30px;
+    margin-bottom: 30px;
+    position: relative;
+  }
+  
+  .home-btn {
+    background: #f8f9fa;
+    color: #333;
+    border: 1px solid #e9ecef;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+  
+  .home-btn i {
+    margin-right: 6px;
+  }
+  
+  .home-btn:hover {
+    background: #F36170;
+    color: white;
+    border-color: #F36170;
+  }
+  
+  .post-header h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin: 0.8em 0 0.4em;
+    line-height: 1.2;
+  }
+  
+  .post-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 0.9rem;
+    margin-bottom: 2em;
+  }
+  
+  .post-meta .post-date {
+    color: #777;
+    margin-right: 5px;
+  }
+  
+  .post-meta .post-cat {
+    background: #f5f5f5;
+    padding: 3px 8px;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    color: #555;
+    text-decoration: none;
+    transition: background 0.2s ease;
+    margin-left: 5px;
+  }
+  
+  .post-meta .post-cat:hover {
+    background: #e5e5e5;
+  }
+  
+  .post-content {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: #333;
+  }
+  
+  .post-content p {
+    margin-bottom: 1.5em;
+  }
+  
+  .post-content h2 {
+    font-size: 1.7rem;
+    margin: 1.8em 0 0.8em;
+    padding-bottom: 0.5em;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .post-content h3 {
+    font-size: 1.4rem;
+    margin: 1.5em 0 0.8em;
+  }
+  
+  .post-content img {
+    max-width: 100%;
+    border-radius: 4px;
+    margin: 1.5em 0;
+  }
+  
+  .post-content pre {
+    background: #f8f8f8;
+    border-radius: 4px;
+    padding: 1em;
+    overflow-x: auto;
+  }
+  
+  .post-content code {
+    background: #f8f8f8;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+  }
+  
+  .post-image-feature {
+    margin-bottom: 2em;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .post-image-feature .feature-image {
+    width: 100%;
+    max-height: 500px;
+    object-fit: cover;
+  }
+  
+  .share-buttons {
+    margin-top: 3em;
+    padding-top: 1.5em;
+    border-top: 1px solid #eee;
+  }
+  
+  .share-buttons h6 {
+    margin-bottom: 1em;
+    font-weight: 600;
+  }
+  
+  .share-buttons ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .share-buttons ul li {
+    list-style: none;
+    margin: 0;
+  }
+  
+  .share-buttons .btn {
+    display: flex;
+    align-items: center;
+    padding: 8px 15px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+  
+  .share-buttons .btn i {
+    margin-right: 8px;
+    font-size: 1.1rem;
+  }
+  
+  .twitter {
+    background-color: #f8f9fa;
+    color: #1DA1F2;
+    border: 1px solid #e9ecef;
+  }
+  
+  .twitter:hover {
+    background-color: #1DA1F2;
+    color: white;
+  }
+  
+  .facebook {
+    background-color: #f8f9fa;
+    color: #4267B2;
+    border: 1px solid #e9ecef;
+  }
+  
+  .facebook:hover {
+    background-color: #4267B2;
+    color: white;
+  }
+  
+  .hacker-news {
+    background-color: #f8f9fa;
+    color: #ff6600;
+    border: 1px solid #e9ecef;
+  }
+  
+  .hacker-news:hover {
+    background-color: #ff6600;
+    color: white;
+  }
+  
+  .reddit {
+    background-color: #f8f9fa;
+    color: #FF5700;
+    border: 1px solid #e9ecef;
+  }
+  
+  .reddit:hover {
+    background-color: #FF5700;
+    color: white;
+  }
+  
+  @media (max-width: 576px) {
+    .share-buttons .btn span {
+      display: none;
+    }
+    
+    .share-buttons .btn {
+      padding: 8px;
+    }
+    
+    .share-buttons .btn i {
+      margin-right: 0;
+    }
+  }
+  
+  .post-categories {
+    display: flex;
+    gap: 5px;
+    margin-left: 5px;
+  }
+  
+  .category-badge {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    border-radius: 4px;
+    color: white;
+    background-color: #6c757d;
+  }
+  
+  .category-activedirectory {
+    background-color: #007bff;
+  }
+  
+  .category-rop {
+    background-color: #6f42c1;
+  }
+  
+  .category-hackthebox {
+    background-color: #28a745;
+  }
+  
+  .category-powershell {
+    background-color: #17a2b8;
+  }
+  
+  .category-binary {
+    background-color: #dc3545;
+  }
+  
+  .category-exploitation {
+    background-color: #fd7e14;
+  }
+  
+  .category-security {
+    background-color: #20c997;
+  }
+</style>

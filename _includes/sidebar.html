@@ -1,25 +1,34 @@
 {% if page.author %} {% assign author = site.data.authors[page.author] %}{% else %}{% assign author = site.owner %} {% endif %}
 
 <div class="cover-card table-cell table-middle">
-  {% if author.avatar %}
-  <a href="{{ site.url }}/">
-    <img src="{{ site.url }}/img/{{ author.avatar }}" alt="" class="avatar">
-  </a>
-  {% endif %}
-  <a href="{{ site.url }}/" class="author_name">{{ author.name }}</a>
-  <span class="author_job">{{ author.job }}</span>
-  <span class="author_bio mbm">{{ author.bio }}</span>
   <nav class="nav">
     <ul class="nav-list">
       <li class="nav-item">
-        <a href="{{ site.url }}/">home</a>
+        <a href="{{ site.url }}{{ site.baseurl }}/" {% if page.url == '/' %}class="active"{% endif %}>
+          <i class="fa fa-home"></i> Home
+        </a>
       </li>
-      {% for page in site.pages %} {% if page.title %}
       <li class="nav-item">
-        <a href="{{ site.url }}{{ page.url }}">{{ page.title }}</a>
+        <a href="{{ site.url }}{{ site.baseurl }}/archive/" {% if page.url contains 'archive' %}class="active"{% endif %}>
+          <i class="fa fa-archive"></i> Archive
+        </a>
       </li>
-      {% endif %} {% endfor %}
+      <li class="nav-item">
+        <a href="{{ site.url }}{{ site.baseurl }}/categories/" {% if page.url contains 'categories' %}class="active"{% endif %}>
+          <i class="fa fa-folder"></i> Categories
+          <span class="category-count">{{ site.categories | size }}</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ site.url }}{{ site.baseurl }}/tags/" {% if page.url contains 'tags' %}class="active"{% endif %}>
+          <i class="fa fa-tags"></i> Tags
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ site.url }}{{ site.baseurl }}/resume/" {% if page.url contains 'resume' %}class="active"{% endif %}>
+          <i class="fa fa-file-text"></i> Resume
+        </a>
+      </li>
     </ul>
   </nav>
-  {% include social-links.html %}
 </div>

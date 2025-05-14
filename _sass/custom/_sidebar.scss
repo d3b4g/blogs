@@ -1,0 +1,17 @@
+// Enhanced Sidebar Styling
+.cover-card {
+  padding: 0 30px;
+  
+  @include media-query($medium-screen) {
+    text-align: right;
+    margin: 0 auto;
+    padding: 0 0 80px;
+  }
+}
+
+// Dark mode styles
+body.dark-mode {
+  .cover-card {
+    // Dark mode specific styles
+  }
+} 

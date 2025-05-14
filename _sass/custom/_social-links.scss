@@ -1,0 +1,90 @@
+// Enhanced Social Media Links
+.social-links {
+  margin-top: 1.5em;
+  
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    
+    @include media-query($medium-screen) {
+      justify-content: flex-end;
+    }
+    
+    li {
+      list-style: none;
+      margin: 0;
+    }
+  }
+  
+  .social-link-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #f8f9fa;
+    color: #555;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    // Brand colors
+    &.twitter-link:hover {
+      background-color: #1DA1F2;
+      color: white;
+    }
+    
+    &.facebook-link:hover {
+      background-color: #4267B2;
+      color: white;
+    }
+    
+    &.linkedin-link:hover {
+      background-color: #0077B5;
+      color: white;
+    }
+    
+    &.github-link:hover {
+      background-color: #333;
+      color: white;
+    }
+    
+    &.instagram-link:hover {
+      background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      color: white;
+    }
+    
+    &.youtube-link:hover {
+      background-color: #FF0000;
+      color: white;
+    }
+    
+    &.email-link:hover {
+      background-color: #D44638;
+      color: white;
+    }
+  }
+}
+
+// Dark mode styles
+body.dark-mode {
+  .social-links {
+    .social-link-item {
+      background-color: #333;
+      color: #bbb;
+      
+      &:hover {
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+      }
+    }
+  }
+} 

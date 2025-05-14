@@ -1,5 +1,7 @@
 ---
-layout: default
+layout: page
+title: All Posts
+permalink: /posts/
 ---
 
 <div class="post-cards-container">
@@ -26,24 +28,6 @@ layout: default
       {% if post.image.credit %}
       <span class="image-credit">Photo Credit: <a href="{{ post.image.creditlink }}">{{ post.image.credit }}</a></span>
       {% endif %}
-    </div>
-    {% else %}
-    <div class="post-image-placeholder">
-      {% assign category = post.categories | first | downcase %}
-      {% case category %}
-        {% when 'active directory red team' %}
-          <img src="{{ site.url }}{{ site.baseurl }}/img/adlabs.png" alt="Active Directory" class="placeholder-img">
-        {% when 'security advisories' %}
-          <img src="{{ site.url }}{{ site.baseurl }}/img/Screenshot_2021-05-08_14-16-59.png" alt="Security Advisory" class="placeholder-img">
-        {% when 'powershell' %}
-          <img src="{{ site.url }}{{ site.baseurl }}/img/powershell1.PNG" alt="PowerShell" class="placeholder-img">
-        {% when 'hackthebox' %}
-          <img src="{{ site.url }}{{ site.baseurl }}/img/labssz.png" alt="HackTheBox" class="placeholder-img">
-        {% when 'rop' %}
-          <img src="{{ site.url }}{{ site.baseurl }}/img/ropemev2-001.PNG" alt="ROP" class="placeholder-img">
-        {% else %}
-          <img src="{{ site.url }}{{ site.baseurl }}/img/feature1.PNG" alt="Default" class="placeholder-img">
-      {% endcase %}
     </div>
     {% endif %}
     
@@ -111,4 +95,4 @@ layout: default
   .post-card:hover .post-image-feature img {
     transform: scale(1.05);
   }
-</style>
+</style> 

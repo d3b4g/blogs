@@ -1,0 +1,21 @@
+{% assign category = include.category | downcase %}
+
+{% if category == "binary exploitation" %}
+  <i class="fa fa-bug" aria-hidden="true"></i>
+{% elsif category == "windows-exploit" %}
+  <i class="fa fa-windows" aria-hidden="true"></i>
+{% elsif category == "hackthebox" %}
+  <i class="fa fa-cube" aria-hidden="true"></i>
+{% elsif category == "rop" %}
+  <i class="fa fa-chain-broken" aria-hidden="true"></i>
+{% elsif category == "activedirectory" %}
+  <i class="fa fa-sitemap" aria-hidden="true"></i>
+{% elsif category == "powershell" %}
+  <i class="fa fa-terminal" aria-hidden="true"></i>
+{% elsif category == "active directory red team" %}
+  <i class="fa fa-shield" aria-hidden="true"></i>
+{% elsif category == "security advisories" %}
+  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+{% else %}
+  <i class="fa fa-folder" aria-hidden="true"></i>
+{% endif %} 

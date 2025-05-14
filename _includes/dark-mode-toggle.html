@@ -1,0 +1,42 @@
+<button class="dark-mode-toggle" id="darkModeToggle" aria-label="Toggle dark mode">
+  <i class="fa fa-moon-o" id="darkModeIcon"></i>
+</button>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const darkModeIcon = document.getElementById('darkModeIcon');
+    const body = document.body;
+    
+    // Check for saved user preference
+    const darkMode = localStorage.getItem('darkMode');
+    
+    // If dark mode was previously enabled, apply it
+    if (darkMode === 'enabled') {
+      enableDarkMode();
+    }
+    
+    darkModeToggle.addEventListener('click', function() {
+      // If dark mode is not currently enabled, enable it
+      if (body.classList.contains('dark-mode')) {
+        disableDarkMode();
+      } else {
+        enableDarkMode();
+      }
+    });
+    
+    function enableDarkMode() {
+      body.classList.add('dark-mode');
+      darkModeIcon.classList.remove('fa-moon-o');
+      darkModeIcon.classList.add('fa-sun-o');
+      localStorage.setItem('darkMode', 'enabled');
+    }
+    
+    function disableDarkMode() {
+      body.classList.remove('dark-mode');
+      darkModeIcon.classList.remove('fa-sun-o');
+      darkModeIcon.classList.add('fa-moon-o');
+      localStorage.setItem('darkMode', null);
+    }
+  });
+</script> 

@@ -1,0 +1,133 @@
+// Improved code highlighting
+.highlight {
+  background: #282c34;
+  color: #abb2bf;
+  border-radius: 6px;
+  margin: 1.5em 0;
+  
+  pre {
+    padding: 1.2em;
+    overflow-x: auto;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Source Code Pro', Menlo, Monaco, Consolas, 'Courier New', monospace;
+    font-size: 0.9em;
+    line-height: 1.5;
+    border: none;
+    background: transparent;
+  }
+  
+  .c { color: #5c6370; font-style: italic; } // Comment
+  .err { color: #e06c75; } // Error
+  .k { color: #c678dd; } // Keyword
+  .l { color: #d19a66; } // Literal
+  .n { color: #abb2bf; } // Name
+  .o { color: #56b6c2; } // Operator
+  .p { color: #abb2bf; } // Punctuation
+  .cm { color: #5c6370; font-style: italic; } // Comment.Multiline
+  .cp { color: #5c6370; } // Comment.Preproc
+  .c1 { color: #5c6370; font-style: italic; } // Comment.Single
+  .cs { color: #5c6370; } // Comment.Special
+  .gd { color: #e06c75; } // Generic.Deleted
+  .ge { font-style: italic; } // Generic.Emph
+  .gh { color: #abb2bf; font-weight: bold; } // Generic.Heading
+  .gi { color: #98c379; } // Generic.Inserted
+  .gp { color: #5c6370; font-weight: bold; } // Generic.Prompt
+  .gs { font-weight: bold; } // Generic.Strong
+  .gu { color: #abb2bf; font-weight: bold; } // Generic.Subheading
+  .kc { color: #c678dd; } // Keyword.Constant
+  .kd { color: #c678dd; } // Keyword.Declaration
+  .kn { color: #c678dd; } // Keyword.Namespace
+  .kp { color: #c678dd; } // Keyword.Pseudo
+  .kr { color: #c678dd; } // Keyword.Reserved
+  .kt { color: #e5c07b; } // Keyword.Type
+  .m { color: #d19a66; } // Literal.Number
+  .s { color: #98c379; } // Literal.String
+  .na { color: #e5c07b; } // Name.Attribute
+  .nb { color: #abb2bf; } // Name.Builtin
+  .nc { color: #e5c07b; } // Name.Class
+  .no { color: #e06c75; } // Name.Constant
+  .nd { color: #56b6c2; } // Name.Decorator
+  .ni { color: #abb2bf; } // Name.Entity
+  .ne { color: #e06c75; } // Name.Exception
+  .nf { color: #61afef; } // Name.Function
+  .nl { color: #abb2bf; } // Name.Label
+  .nn { color: #abb2bf; } // Name.Namespace
+  .nx { color: #61afef; } // Name.Other
+  .py { color: #abb2bf; } // Name.Property
+  .nt { color: #e06c75; } // Name.Tag
+  .nv { color: #e06c75; } // Name.Variable
+  .ow { color: #56b6c2; } // Operator.Word
+  .w { color: #abb2bf; } // Text.Whitespace
+  .mf { color: #d19a66; } // Literal.Number.Float
+  .mh { color: #d19a66; } // Literal.Number.Hex
+  .mi { color: #d19a66; } // Literal.Number.Integer
+  .mo { color: #d19a66; } // Literal.Number.Oct
+  .sb { color: #98c379; } // Literal.String.Backtick
+  .sc { color: #98c379; } // Literal.String.Char
+  .sd { color: #98c379; } // Literal.String.Doc
+  .s2 { color: #98c379; } // Literal.String.Double
+  .se { color: #d19a66; } // Literal.String.Escape
+  .sh { color: #98c379; } // Literal.String.Heredoc
+  .si { color: #98c379; } // Literal.String.Interpol
+  .sx { color: #98c379; } // Literal.String.Other
+  .sr { color: #56b6c2; } // Literal.String.Regex
+  .s1 { color: #98c379; } // Literal.String.Single
+  .ss { color: #56b6c2; } // Literal.String.Symbol
+  .bp { color: #abb2bf; } // Name.Builtin.Pseudo
+  .vc { color: #e06c75; } // Name.Variable.Class
+  .vg { color: #e06c75; } // Name.Variable.Global
+  .vi { color: #e06c75; } // Name.Variable.Instance
+  .il { color: #d19a66; } // Literal.Number.Integer.Long
+}
+
+// Code block with filename
+.code-header {
+  background: #21252b;
+  color: #abb2bf;
+  border-radius: 6px 6px 0 0;
+  padding: 0.5em 1em;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Source Code Pro', monospace;
+  font-size: 0.8em;
+  border-bottom: 1px solid #181a1f;
+  display: flex;
+  align-items: center;
+  
+  &:before {
+    content: "";
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background: #e06c75;
+    border-radius: 50%;
+    margin-right: 8px;
+  }
+  
+  &:after {
+    content: "";
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background: #98c379;
+    border-radius: 50%;
+    margin-right: 8px;
+    margin-left: 5px;
+  }
+}
+
+.code-with-header + .highlight {
+  margin-top: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+// Inline code
+code.highlighter-rouge {
+  background: #f5f5f5;
+  color: #e06c75;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Source Code Pro', monospace;
+  font-size: 0.9em;
+}
+
+// Add JetBrains Mono font for code
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap'); 
