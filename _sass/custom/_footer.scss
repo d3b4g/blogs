@@ -1,0 +1,152 @@
+// Terminal Footer Styles
+// ======================
+
+.terminal-footer {
+    margin-top: 4rem;
+    padding: 1.5rem 0;
+    border-top: 1px solid $terminal-gray-light;
+    font-size: 0.8rem;
+    background: linear-gradient(to bottom,
+            transparent,
+            rgba(0, 0, 0, 0.3));
+}
+
+// Status Bar
+.footer-status-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    padding: 0.75rem 1rem;
+    background: $terminal-black;
+    border: 1px solid $terminal-gray-light;
+    font-family: $font-family-terminal;
+}
+
+.status-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.status-connected {
+    .status-indicator {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        background: $terminal-green;
+        border-radius: 50%;
+        animation: pulse-indicator 2s ease-in-out infinite;
+        box-shadow: 0 0 8px $terminal-green-glow;
+    }
+
+    .status-text {
+        color: $terminal-green;
+        font-weight: 600;
+    }
+}
+
+@keyframes pulse-indicator {
+
+    0%,
+    100% {
+        opacity: 1;
+        box-shadow: 0 0 8px $terminal-green-glow;
+    }
+
+    50% {
+        opacity: 0.7;
+        box-shadow: 0 0 4px $terminal-green-glow;
+    }
+}
+
+.status-text {
+    color: $terminal-text-dim;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-value {
+    color: $terminal-text;
+}
+
+.status-uptime {
+    color: $terminal-green;
+}
+
+.status-divider {
+    color: $terminal-gray-light;
+    margin: 0 0.25rem;
+}
+
+// Footer Prompt Line
+.footer-prompt {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    color: $terminal-text-dim;
+}
+
+.prompt-symbol {
+    color: $terminal-green;
+    margin-right: 0.25rem;
+}
+
+.footer-copyright {
+    color: $terminal-text;
+}
+
+.footer-divider {
+    color: $terminal-gray-light;
+    opacity: 0.5;
+}
+
+.footer-links {
+    a {
+        color: $terminal-green-dim;
+        text-decoration: none;
+        transition: all 0.3s ease;
+
+        &:hover {
+            color: $terminal-green;
+            text-shadow: 0 0 8px $terminal-green-glow;
+        }
+    }
+
+    .link-separator {
+        color: $terminal-gray-light;
+        margin: 0 0.25rem;
+    }
+}
+
+.cursor-blink {
+    color: $terminal-green;
+    animation: cursor-blink 1s step-end infinite;
+    margin-left: 0.25rem;
+}
+
+// Responsive
+@media (max-width: 600px) {
+    .footer-status-bar {
+        flex-direction: column;
+        gap: 0.75rem;
+        text-align: center;
+    }
+
+    .status-divider {
+        display: none;
+    }
+
+    .footer-prompt {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .footer-divider {
+        display: none;
+    }
+}

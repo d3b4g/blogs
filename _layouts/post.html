@@ -2,20 +2,19 @@
 layout: default
 ---
 
+<!-- Reading Progress Bar -->
+<div class="reading-progress" id="reading-progress"></div>
+
 <div class="single-post-container">
   <a class="btn home-btn" href="{{ site.url }}{{ site.baseurl }}/">
-    <i class="fa fa-home"></i> Home
+    <i class="fa fa-arrow-left"></i> cd ../
   </a>
-  
+
   {% if page.image.feature %}
   <div class="post-image-feature">
-    <img class="feature-image" src=
-    {% if page.image.feature contains 'https' or page.image.feature contains 'http' %}
-    "{{ page.image.feature }}"
-    {% else %}
-    "{{ site.url }}{{ site.baseurl }}/img/{{ page.image.feature }}"
-    {% endif %}
-    alt="{{ page.title | escape }} feature image">
+    <img class="feature-image" src={% if page.image.feature contains 'https' or page.image.feature contains 'http'
+      %} "{{ page.image.feature }}" {% else %} "{{ site.url }}{{ site.baseurl }}/img/{{ page.image.feature }}" {% endif
+      %} alt="{{ page.title | escape }} feature image">
 
     {% if page.image.credit %}
     <span class="image-credit">Photo Credit: <a href="{{ page.image.creditlink }}">{{ page.image.credit }}</a></span>
@@ -24,20 +23,27 @@ layout: default
   {% endif %}
 
   <div id="post">
+    <!-- Terminal-style Post Header -->
     <header class="post-header">
+      <div class="post-file-path">
+        <span class="path-prompt">❯</span>
+        <span class="path-text">~/posts/{{ page.date | date: "%Y" }}/{{ page.title | slugify }}.md</span>
+      </div>
+
       <h1 title="{{ page.title | escape }}">{{ page.title }}</h1>
+
       <div class="post-meta">
         <span class="post-date">
-          {{ page.date | date: "%-d %b %Y" | upcase }}
+          {{ page.date | date: "%Y-%m-%d" }}
         </span>
-        •
+        <span class="meta-separator">|</span>
         {% include read_time.html %}
-        
+
         {% if page.categories.size > 0 %}
-        •
+        <span class="meta-separator">|</span>
         <div class="post-categories">
           {% for cat in page.categories %}
-            <span class="category-badge category-{{ cat | downcase }}">{{ cat }}</span>
+          <span class="category-badge category-{{ cat | downcase }}">{{ cat }}</span>
           {% endfor %}
         </div>
         {% endif %}
@@ -47,25 +53,84 @@ layout: default
     <article class="post-content">
       {{ content }}
     </article>
+
+    <!-- Post Footer -->
+    <footer class="post-footer">
+      <div class="post-end-marker">
+        <span class="marker-line"></span>
+        <span class="marker-text">EOF</span>
+        <span class="marker-line"></span>
+      </div>
+    </footer>
   </div>
 
   <div class="share-buttons">
-    <h6>Share on: </h6>
+    <h6>> share --platform</h6>
     <ul>
       <li>
-        <a href="https://twitter.com/intent/tweet?text={{ site.url }}{{ site.baseurl }}{{ page.url }}" class="twitter btn" title="Share on Twitter"><i class="fa fa-twitter"></i><span> Twitter</span></a>
+        <a href="https://twitter.com/intent/tweet?text={{ site.url }}{{ site.baseurl }}{{ page.url }}"
+          class="twitter btn" title="Share on Twitter"><i class="fa fa-twitter"></i><span> Twitter</span></a>
       </li>
       <li>
-        <a href="https://www.facebook.com/sharer/sharer.php?u={{ site.url }}{{ site.baseurl }}{{ page.url }}" class="facebook btn" title="Share on Facebook"><i class="fa fa-facebook"></i><span> Facebook</span></a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{ site.url }}{{ site.baseurl }}{{ page.url }}"
+          class="facebook btn" title="Share on Facebook"><i class="fa fa-facebook"></i><span> Facebook</span></a>
       </li>
       <li>
-        <a href="https://news.ycombinator.com/submitlink?u={{ site.url }}{{ site.baseurl }}{{ page.url }}" class="hacker-news btn" title="Share on Hacker News"><i class="fa fa-hacker-news"></i><span> Hacker News</span></a>
+        <a href="https://news.ycombinator.com/submitlink?u={{ site.url }}{{ site.baseurl }}{{ page.url }}"
+          class="hacker-news btn" title="Share on Hacker News"><i class="fa fa-hacker-news"></i><span> HN</span></a>
       </li>
       <li>
-        <a href="https://www.reddit.com/submit?url={{ site.url }}{{ site.baseurl }}{{ page.url }}" class="reddit btn" title="Share on Reddit"><i class="fa fa-reddit"></i><span> Reddit</span></a>
+        <a href="https://www.reddit.com/submit?url={{ site.url }}{{ site.baseurl }}{{ page.url }}" class="reddit btn"
+          title="Share on Reddit"><i class="fa fa-reddit"></i><span> Reddit</span></a>
       </li>
     </ul>
   </div>
+
+  <!-- Related Posts -->
+  {% assign maxRelated = 3 %}
+  {% assign minCommonTags = 1 %}
+  {% assign maxRelatedCounter = 0 %}
+  {% assign relatedPosts = "" | split: "" %}
+
+  {% for post in site.posts %}
+  {% if post.url != page.url %}
+  {% assign commonTags = 0 %}
+  {% for tag in post.tags %}
+  {% if page.tags contains tag %}
+  {% assign commonTags = commonTags | plus: 1 %}
+  {% endif %}
+  {% endfor %}
+  {% for cat in post.categories %}
+  {% if page.categories contains cat %}
+  {% assign commonTags = commonTags | plus: 1 %}
+  {% endif %}
+  {% endfor %}
+  {% if commonTags >= minCommonTags %}
+  {% assign relatedPosts = relatedPosts | push: post %}
+  {% assign maxRelatedCounter = maxRelatedCounter | plus: 1 %}
+  {% endif %}
+  {% endif %}
+  {% if maxRelatedCounter >= maxRelated %}
+  {% break %}
+  {% endif %}
+  {% endfor %}
+
+  {% if relatedPosts.size > 0 %}
+  <div class="related-posts">
+    <h6>> ls ./related</h6>
+    <ul class="related-list">
+      {% for post in relatedPosts limit:3 %}
+      <li class="related-item">
+        <a href="{{ site.url }}{{ post.url }}" class="related-link">
+          <span class="related-prefix">├──</span>
+          <span class="related-title">{{ post.title }}</span>
+          <span class="related-date">{{ post.date | date: "%b %Y" }}</span>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
 
   {% if site.owner.disqus-shortname and page.comments == true %}
   <div id="disqus_thread"></div>
@@ -74,20 +139,31 @@ layout: default
 </div>
 
 <style>
+  /* Reading Progress Bar */
+  .reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: linear-gradient(90deg, #00ff41, #00d4ff);
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+    z-index: 10000;
+    transition: width 0.1s ease-out;
+  }
+
   .single-post-container {
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+    background: #0a0a0a;
+    border: 1px solid #21262d;
     padding: 30px;
     margin-bottom: 30px;
     position: relative;
   }
-  
+
   .home-btn {
-    background: #f8f9fa;
-    color: #333;
-    border: 1px solid #e9ecef;
-    border-radius: 4px;
+    background: transparent;
+    color: #00ff41;
+    border: 1px solid #00cc33;
     padding: 8px 16px;
     font-weight: 500;
     margin-bottom: 20px;
@@ -95,117 +171,227 @@ layout: default
     align-items: center;
     text-decoration: none;
     transition: all 0.3s ease;
+    font-family: "JetBrains Mono", monospace;
   }
-  
+
   .home-btn i {
-    margin-right: 6px;
+    margin-right: 8px;
   }
-  
+
   .home-btn:hover {
-    background: #F36170;
-    color: white;
-    border-color: #F36170;
+    background: rgba(0, 255, 65, 0.1);
+    border-color: #00ff41;
+    box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
   }
-  
+
+  /* Post File Path */
+  .post-file-path {
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+    font-family: "JetBrains Mono", monospace;
+  }
+
+  .post-file-path .path-prompt {
+    color: #00ff41;
+    margin-right: 0.5rem;
+  }
+
+  .post-file-path .path-text {
+    color: #8b949e;
+  }
+
   .post-header h1 {
-    font-size: 2.2rem;
-    font-weight: 700;
-    margin: 0.8em 0 0.4em;
-    line-height: 1.2;
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin: 0.5em 0 0.4em;
+    line-height: 1.3;
+    color: #f0f6fc;
   }
-  
+
   .post-meta {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     margin-bottom: 2em;
+    gap: 0.5rem;
   }
-  
+
   .post-meta .post-date {
-    color: #777;
-    margin-right: 5px;
+    color: #ffb000;
   }
-  
-  .post-meta .post-cat {
-    background: #f5f5f5;
-    padding: 3px 8px;
-    border-radius: 15px;
-    font-size: 0.75rem;
-    color: #555;
-    text-decoration: none;
-    transition: background 0.2s ease;
-    margin-left: 5px;
+
+  .post-meta .post-date::before {
+    content: '[';
   }
-  
-  .post-meta .post-cat:hover {
-    background: #e5e5e5;
+
+  .post-meta .post-date::after {
+    content: ']';
   }
-  
+
+  .meta-separator {
+    color: #8b949e;
+    opacity: 0.5;
+  }
+
   .post-content {
-    font-size: 1.05rem;
-    line-height: 1.7;
-    color: #333;
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #c9d1d9;
   }
-  
+
   .post-content p {
     margin-bottom: 1.5em;
   }
-  
+
   .post-content h2 {
-    font-size: 1.7rem;
-    margin: 1.8em 0 0.8em;
+    font-size: 1.5rem;
+    margin: 2em 0 0.8em;
     padding-bottom: 0.5em;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #21262d;
+    color: #00ff41;
   }
-  
+
+  .post-content h2::before {
+    content: "## ";
+    color: #8b949e;
+    opacity: 0.5;
+  }
+
   .post-content h3 {
-    font-size: 1.4rem;
+    font-size: 1.25rem;
     margin: 1.5em 0 0.8em;
+    color: #00cc33;
   }
-  
+
+  .post-content h3::before {
+    content: "### ";
+    color: #8b949e;
+    opacity: 0.5;
+  }
+
+  .post-content h4 {
+    font-size: 1.1rem;
+    margin: 1.2em 0 0.6em;
+    color: #00aa28;
+  }
+
   .post-content img {
     max-width: 100%;
-    border-radius: 4px;
+    border: 1px solid #21262d;
     margin: 1.5em 0;
   }
-  
+
+  .post-content a {
+    color: #00ff41;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: all 0.3s ease;
+  }
+
+  .post-content a:hover {
+    border-bottom-color: #00ff41;
+    text-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+  }
+
   .post-content pre {
-    background: #f8f8f8;
-    border-radius: 4px;
+    background: #161b22;
+    border: 1px solid #21262d;
     padding: 1em;
     overflow-x: auto;
+    font-family: "JetBrains Mono", "Fira Code", monospace;
+    position: relative;
   }
-  
+
   .post-content code {
-    background: #f8f8f8;
+    background: #161b22;
     padding: 0.2em 0.4em;
-    border-radius: 3px;
+    font-family: "JetBrains Mono", "Fira Code", monospace;
+    color: #00ff41;
+    font-size: 0.9em;
   }
-  
+
+  .post-content pre code {
+    background: transparent;
+    padding: 0;
+    color: #c9d1d9;
+  }
+
+  .post-content blockquote {
+    border-left: 3px solid #00ff41;
+    padding-left: 1em;
+    margin-left: 0;
+    color: #8b949e;
+    font-style: italic;
+  }
+
+  .post-content ul,
+  .post-content ol {
+    padding-left: 1.5em;
+  }
+
+  .post-content li {
+    margin-bottom: 0.5em;
+  }
+
+  .post-content li::marker {
+    color: #00ff41;
+  }
+
+  /* Post Footer */
+  .post-footer {
+    margin-top: 3rem;
+  }
+
+  .post-end-marker {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .marker-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #21262d, transparent);
+  }
+
+  .marker-text {
+    color: #8b949e;
+    font-size: 0.8rem;
+    font-family: "JetBrains Mono", monospace;
+  }
+
   .post-image-feature {
     margin-bottom: 2em;
-    border-radius: 8px;
+    border: 1px solid #21262d;
     overflow: hidden;
   }
-  
+
   .post-image-feature .feature-image {
     width: 100%;
-    max-height: 500px;
+    max-height: 400px;
     object-fit: cover;
+    filter: grayscale(20%);
+    transition: filter 0.3s ease;
   }
-  
+
+  .post-image-feature:hover .feature-image {
+    filter: grayscale(0%);
+  }
+
   .share-buttons {
-    margin-top: 3em;
+    margin-top: 2em;
     padding-top: 1.5em;
-    border-top: 1px solid #eee;
+    border-top: 1px solid #21262d;
   }
-  
+
   .share-buttons h6 {
     margin-bottom: 1em;
-    font-weight: 600;
+    font-weight: 500;
+    color: #00ff41;
+    font-family: "JetBrains Mono", monospace;
   }
-  
+
   .share-buttons ul {
     display: flex;
     flex-wrap: wrap;
@@ -213,127 +399,259 @@ layout: default
     padding: 0;
     margin: 0;
   }
-  
+
   .share-buttons ul li {
     list-style: none;
     margin: 0;
   }
-  
+
   .share-buttons .btn {
     display: flex;
     align-items: center;
-    padding: 8px 15px;
-    border-radius: 4px;
-    font-size: 0.9rem;
+    padding: 8px 12px;
+    font-size: 0.85rem;
     font-weight: 500;
     text-decoration: none;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
+    background: transparent;
+    border: 1px solid #21262d;
+    color: #8b949e;
   }
-  
+
   .share-buttons .btn i {
-    margin-right: 8px;
-    font-size: 1.1rem;
+    margin-right: 6px;
+    font-size: 1rem;
   }
-  
-  .twitter {
-    background-color: #f8f9fa;
-    color: #1DA1F2;
-    border: 1px solid #e9ecef;
+
+  .share-buttons .btn:hover {
+    border-color: #00ff41;
+    color: #00ff41;
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.2);
   }
-  
+
   .twitter:hover {
-    background-color: #1DA1F2;
-    color: white;
+    border-color: #1DA1F2 !important;
+    color: #1DA1F2 !important;
+    box-shadow: 0 0 10px rgba(29, 161, 242, 0.3) !important;
   }
-  
-  .facebook {
-    background-color: #f8f9fa;
-    color: #4267B2;
-    border: 1px solid #e9ecef;
-  }
-  
+
   .facebook:hover {
-    background-color: #4267B2;
-    color: white;
+    border-color: #4267B2 !important;
+    color: #4267B2 !important;
+    box-shadow: 0 0 10px rgba(66, 103, 178, 0.3) !important;
   }
-  
-  .hacker-news {
-    background-color: #f8f9fa;
-    color: #ff6600;
-    border: 1px solid #e9ecef;
-  }
-  
+
   .hacker-news:hover {
-    background-color: #ff6600;
-    color: white;
+    border-color: #ff6600 !important;
+    color: #ff6600 !important;
+    box-shadow: 0 0 10px rgba(255, 102, 0, 0.3) !important;
   }
-  
-  .reddit {
-    background-color: #f8f9fa;
-    color: #FF5700;
-    border: 1px solid #e9ecef;
-  }
-  
+
   .reddit:hover {
-    background-color: #FF5700;
-    color: white;
+    border-color: #FF5700 !important;
+    color: #FF5700 !important;
+    box-shadow: 0 0 10px rgba(255, 87, 0, 0.3) !important;
   }
-  
+
+  /* Related Posts */
+  .related-posts {
+    margin-top: 2em;
+    padding-top: 1.5em;
+    border-top: 1px solid #21262d;
+  }
+
+  .related-posts h6 {
+    margin-bottom: 1em;
+    font-weight: 500;
+    color: #00ff41;
+    font-family: "JetBrains Mono", monospace;
+  }
+
+  .related-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .related-item {
+    margin: 0;
+  }
+
+  .related-link {
+    display: flex;
+    align-items: baseline;
+    padding: 0.5rem 0;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    gap: 0.5rem;
+  }
+
+  .related-link:hover {
+    padding-left: 0.5rem;
+  }
+
+  .related-link:hover .related-title {
+    color: #00ff41;
+  }
+
+  .related-prefix {
+    color: #21262d;
+    font-size: 0.8rem;
+  }
+
+  .related-title {
+    color: #c9d1d9;
+    font-size: 0.9rem;
+    flex: 1;
+    transition: color 0.2s ease;
+  }
+
+  .related-date {
+    color: #8b949e;
+    font-size: 0.75rem;
+  }
+
   @media (max-width: 576px) {
     .share-buttons .btn span {
       display: none;
     }
-    
+
     .share-buttons .btn {
       padding: 8px;
     }
-    
+
     .share-buttons .btn i {
       margin-right: 0;
     }
   }
-  
+
   .post-categories {
     display: flex;
     gap: 5px;
-    margin-left: 5px;
   }
-  
+
   .category-badge {
     font-size: 0.7rem;
-    font-weight: 600;
+    font-weight: 500;
     text-transform: uppercase;
-    padding: 4px 8px;
-    border-radius: 4px;
-    color: white;
-    background-color: #6c757d;
+    padding: 3px 8px;
+    color: #00ff41;
+    background: transparent;
+    border: 1px solid #00cc33;
+    letter-spacing: 0.5px;
   }
-  
-  .category-activedirectory {
-    background-color: #007bff;
+
+  .category-badge::before {
+    content: '[';
+    opacity: 0.6;
   }
-  
-  .category-rop {
-    background-color: #6f42c1;
+
+  .category-badge::after {
+    content: ']';
+    opacity: 0.6;
   }
-  
+
+  .category-activedirectory,
+  .category-active-directory-red-team {
+    border-color: #ffb000;
+    color: #ffb000;
+  }
+
+  .category-rop,
+  .category-binary-exploitation {
+    border-color: #ff4444;
+    color: #ff4444;
+  }
+
   .category-hackthebox {
-    background-color: #28a745;
+    border-color: #9fef00;
+    color: #9fef00;
   }
-  
+
   .category-powershell {
-    background-color: #17a2b8;
+    border-color: #00d4ff;
+    color: #00d4ff;
   }
-  
-  .category-binary {
-    background-color: #dc3545;
+
+  .category-security-advisories {
+    border-color: #ff79c6;
+    color: #ff79c6;
   }
-  
-  .category-exploitation {
-    background-color: #fd7e14;
+</style>
+
+<script>
+  // Reading Progress Bar
+  document.addEventListener('DOMContentLoaded', function () {
+    const progressBar = document.getElementById('reading-progress');
+    const post = document.querySelector('.post-content');
+
+    if (progressBar && post) {
+      window.addEventListener('scroll', function () {
+        const postTop = post.offsetTop;
+        const postHeight = post.offsetHeight;
+        const windowHeight = window.innerHeight;
+        const scrollTop = window.scrollY;
+
+        const progress = Math.min(100, Math.max(0,
+          ((scrollTop - postTop + windowHeight) / (postHeight + windowHeight)) * 100
+        ));
+
+        progressBar.style.width = progress + '%';
+      });
+    }
+
+    // Copy button for code blocks
+    document.querySelectorAll('.post-content pre').forEach(function (pre) {
+      const copyBtn = document.createElement('button');
+      copyBtn.className = 'copy-btn';
+      copyBtn.innerHTML = '<i class="fa fa-copy"></i>';
+      copyBtn.title = 'Copy code';
+
+      copyBtn.addEventListener('click', function () {
+        const code = pre.querySelector('code') || pre;
+        navigator.clipboard.writeText(code.textContent).then(function () {
+          copyBtn.innerHTML = '<i class="fa fa-check"></i>';
+          copyBtn.classList.add('copied');
+          setTimeout(function () {
+            copyBtn.innerHTML = '<i class="fa fa-copy"></i>';
+            copyBtn.classList.remove('copied');
+          }, 2000);
+        });
+      });
+
+      pre.style.position = 'relative';
+      pre.appendChild(copyBtn);
+    });
+  });
+</script>
+
+<style>
+  .copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: #21262d;
+    border: 1px solid #30363d;
+    color: #8b949e;
+    padding: 6px 10px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+    opacity: 0;
   }
-  
-  .category-security {
-    background-color: #20c997;
+
+  pre:hover .copy-btn {
+    opacity: 1;
+  }
+
+  .copy-btn:hover {
+    background: #30363d;
+    color: #00ff41;
+    border-color: #00ff41;
+  }
+
+  .copy-btn.copied {
+    color: #00ff41;
+    border-color: #00ff41;
   }
 </style>

@@ -1,16 +1,18 @@
-// Post listing
+// Post listing - Terminal Theme
 .post-listing {
-  background-color: $white;
+  background-color: $terminal-gray;
   position: absolute;
   top: 400px;
   z-index: 233;
   width: 100%;
   padding: 20px 20px 0;
-  -webkit-transform: translate3d(0,0,1px);
-  transform: translate3d(0,0,1px);
+  -webkit-transform: translate3d(0, 0, 1px);
+  transform: translate3d(0, 0, 1px);
+
   @include media-query($small-screen) {
     padding: 50px 30px 0;
   }
+
   @include media-query($medium-screen) {
     height: 100vh;
     overflow-y: scroll;
@@ -23,72 +25,117 @@
   float: right;
   font-weight: bold;
   font-style: italic;
-  color: $info;
+  color: $terminal-cyan;
   font-size: 13px;
   padding-right: 20px;
+  font-family: $font-family-terminal;
 }
 
 // Post Section
 section.post {
-	margin-bottom: 80px;
+  margin-bottom: 80px;
 }
 
 // Back home button
-
 .back-home a {
   font-size: 13px;
   font-weight: bold;
-  color: $info;
-  border: 1px solid lighten($text-color, 45%);
+  color: $terminal-green;
+  border: 1px solid $terminal-green;
   border-radius: 0.4em;
   padding: 0.5em 1em;
+  font-family: $font-family-terminal;
+  transition: all 0.3s ease;
+
+  &:before {
+    content: "← ";
+  }
+
+  &:hover {
+    background: rgba($terminal-green, 0.1);
+    box-shadow: 0 0 15px $terminal-green-glow;
+  }
 }
 
 // Post title
 .post-title {
-
+  font-family: $font-family-terminal;
 }
 
 .post-title-link {
-	color: $info;
-	font-size: 14px;
-	margin-left: 10px;
-	&:hover,
-	&:focus {
-		color: lighten($primary, 14%);
-	}
+  color: $terminal-cyan;
+  font-size: 14px;
+  margin-left: 10px;
+  transition: all 0.3s ease;
+
+  &:hover,
+  &:focus {
+    color: $terminal-green;
+    text-shadow: 0 0 8px $terminal-green-glow;
+  }
 }
 
 // Post meta
 .post-meta {
   font-size: 13px;
   font-weight: bold;
-	.post-date {
-		color: $secondary;
-	}
-	.post-author {
-		text-transform: uppercase;
-		color: $warning;
-	}
+  font-family: $font-family-terminal;
+
+  .post-date {
+    color: $terminal-text-dim;
+  }
+
+  .post-author {
+    text-transform: uppercase;
+    color: $terminal-amber;
+  }
+
   .post-cat {
-		text-transform: uppercase;
-		color: $warning;
-	}
+    text-transform: uppercase;
+    color: $terminal-amber;
+    transition: all 0.3s ease;
+
+    &:hover {
+      color: $terminal-green;
+      text-shadow: 0 0 5px $terminal-green-glow;
+    }
+  }
+
   .read-time {
-    color: $primary;
+    color: $terminal-green;
+
+    &:before {
+      content: "[";
+      color: $terminal-text-dim;
+    }
+
+    &:after {
+      content: "]";
+      color: $terminal-text-dim;
+    }
   }
 }
 
 // Read more buttons
-
 a.read-more {
   padding: 5px 8px;
+  color: $terminal-green;
+  border: 1px solid $terminal-green;
+  border-radius: 4px;
+  font-family: $font-family-terminal;
+  text-decoration: none;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba($terminal-green, 0.1);
+    box-shadow: 0 0 10px $terminal-green-glow;
+  }
 }
 
 // Post content
-
 #post {
   padding-bottom: 50px;
+
   .post-header {
     margin: 0 auto 50px;
   }
@@ -96,78 +143,134 @@ a.read-more {
 
 #post h1 {
   margin: 0.5em 0 1em;
+  color: $terminal-green;
+  text-shadow: 0 0 15px $terminal-green-glow;
 }
+
 #post h2 {
   margin: 2em 0 0.8em;
   padding-bottom: 0.7em;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid rgba($terminal-green, 0.3);
+  color: $terminal-amber;
+
+  &:before {
+    content: "## ";
+    color: $terminal-amber-dim;
+  }
 }
+
 #post h3 {
   margin: 1.75em 0 1.2em;
   position: relative;
+  color: $terminal-cyan;
+
+  &:before {
+    content: "### ";
+    color: rgba($terminal-cyan, 0.5);
+  }
 }
 
 #page {
   padding-bottom: 50px;
   min-height: 70vh;
+
   .page-header {
     margin: 0 auto 50px;
+
+    h2 {
+      color: $terminal-green;
+      font-family: $font-family-terminal;
+      text-shadow: 0 0 10px $terminal-green-glow;
+
+      &:before {
+        content: "> ";
+        color: $terminal-green-dim;
+      }
+    }
   }
 }
 
 .post-navigation {
-  background-color: #f6f6f6;
+  background-color: $terminal-gray;
+  border: 1px solid rgba($terminal-green, 0.2);
   @include box-shadow;
 }
+
 .leonids-icon {
   margin: 0 auto;
   padding: 20px 30px;
   text-align: center;
-  color: $warning;
+  color: $terminal-amber;
   font-size: 16px;
   line-height: 16px;
 }
+
 .post-nav-prev,
 .post-nav-next {
   min-height: 10px;
   width: 100%;
 }
+
 .post-nav-next {
   text-align: right;
 }
+
 .post-nav-btn {
   width: 100%;
   padding: 20px 30px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba($terminal-green, 0.05);
+  }
+
   .post-nav-text {
     font-size: 16px;
     line-height: 16px;
     font-weight: bold;
+    font-family: $font-family-terminal;
+    color: $terminal-text;
+    transition: color 0.3s ease;
   }
+
+  &:hover .post-nav-text {
+    color: $terminal-green;
+  }
+
   .table-cell {
     vertical-align: middle;
   }
 }
+
 .post-image-feature {
   margin-bottom: 40px;
+  border: 1px solid rgba($terminal-green, 0.2);
+  border-radius: 4px;
+  overflow: hidden;
+
   .feature-image {
     width: 100%;
     max-height: 500px;
   }
 }
 
-// Shares Buttons
+// Shares Buttons - Terminal Style
 .share-buttons {
   padding-top: 1em;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid rgba($terminal-green, 0.2);
+
   ul {
     margin: 0;
     padding: 0;
     list-style: none;
+
     li {
       display: inline-block;
       margin-right: 0.5em;
+
       span {
         display: none;
+
         @include media-query($small-screen) {
           display: inline;
           margin: 0.5em;
@@ -176,73 +279,85 @@ a.read-more {
     }
   }
 }
+
+// Social share buttons with terminal colors
 .twitter {
-  background-color: #77bcf1;
-  color: $white;
-  border-color: #77bcf1;
+  background-color: transparent;
+  color: $terminal-cyan;
+  border: 1px solid $terminal-cyan;
+
   &:visited {
-    color: $white;
-    border-color: #77bcf1;
+    color: $terminal-cyan;
+    border-color: $terminal-cyan;
   }
+
   &:hover {
-    background-color: $white;
-    color: #77bcf1;
-    border-color: #77bcf1;
+    background-color: rgba($terminal-cyan, 0.1);
+    color: $terminal-cyan;
+    box-shadow: 0 0 10px rgba($terminal-cyan, 0.3);
   }
 }
+
 .facebook {
-  background-color: #627aac;
-  color: $white;
-  border-color: #627aac;
+  background-color: transparent;
+  color: #627aac;
+  border: 1px solid #627aac;
+
   &:visited {
-    color: $white;
-    border-color: #627aac;
-  }
-  &:hover {
-    background-color: $white;
     color: #627aac;
     border-color: #627aac;
   }
+
+  &:hover {
+    background-color: rgba(#627aac, 0.1);
+    box-shadow: 0 0 10px rgba(#627aac, 0.3);
+  }
 }
+
 .google-plus {
-  background-color: #e36f60;
-  color: $white;
-  border-color: #e36f60;
+  background-color: transparent;
+  color: $terminal-amber;
+  border: 1px solid $terminal-amber;
+
   &:visited {
-    color: $white;
-    border-color: #e36f60;
+    color: $terminal-amber;
+    border-color: $terminal-amber;
   }
+
   &:hover {
-    background-color: $white;
-    color: #e36f60;
-    border-color: #e36f60;
+    background-color: rgba($terminal-amber, 0.1);
+    box-shadow: 0 0 10px $terminal-amber-glow;
   }
 }
+
 .hacker-news {
-  background-color: #f60;
-  color: $white;
-  border-color: #f60;
+  background-color: transparent;
+  color: $terminal-amber;
+  border: 1px solid $terminal-amber;
+
   &:visited {
-    color: $white;
-    border-color: #f60;
+    color: $terminal-amber;
+    border-color: $terminal-amber;
   }
+
   &:hover {
-    background-color: $white;
-    color: #f60;
-    border-color: #f60;
+    background-color: rgba($terminal-amber, 0.1);
+    box-shadow: 0 0 10px $terminal-amber-glow;
   }
 }
+
 .reddit {
-  background-color: #5f99cf;
-  color: $white;
-  border-color: #5f99cf;
+  background-color: transparent;
+  color: $terminal-green;
+  border: 1px solid $terminal-green;
+
   &:visited {
-    color: $white;
-    border-color: #5f99cf;
+    color: $terminal-green;
+    border-color: $terminal-green;
   }
+
   &:hover {
-    background-color: $white;
-    color: #5f99cf;
-    border-color: #5f99cf;
+    background-color: rgba($terminal-green, 0.1);
+    box-shadow: 0 0 10px $terminal-green-glow;
   }
 }

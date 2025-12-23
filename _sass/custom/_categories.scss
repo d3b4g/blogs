@@ -1,297 +1,216 @@
-.category-search {
-  position: relative;
+// Categories Page - Minimal Terminal Style
+// =========================================
+
+.categories-minimal {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.categories-header {
+  font-size: 0.85rem;
   margin-bottom: 2rem;
-  
-  input {
-    width: 100%;
-    padding: 0.8rem 1rem 0.8rem 3rem;
-    border: none;
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.1);
-    color: inherit;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-    
-    &:focus {
-      outline: none;
-      box-shadow: 0 0 0 2px rgba(255, 82, 119, 0.4);
-    }
-    
-    &::placeholder {
-      color: rgba(255, 255, 255, 0.5);
-    }
+  color: $terminal-text-dim;
+
+  .prompt {
+    color: $terminal-green;
+    margin-right: 0.5rem;
   }
-  
-  .search-icon {
-    position: absolute;
-    left: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
-    color: rgba(255, 255, 255, 0.5);
+
+  .command {
+    color: $terminal-cyan;
   }
 }
 
-.no-results {
+.category-list {
   display: flex;
   flex-direction: column;
+  gap: 1.5rem;
+}
+
+.category-group {
+  padding-bottom: 1rem;
+}
+
+.category-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: $terminal-green;
+  margin: 0 0 0.75rem;
+  display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 3rem 0;
-  text-align: center;
-  
-  i {
-    margin-bottom: 1rem;
-    color: rgba(255, 255, 255, 0.3);
+  gap: 0.5rem;
+
+  .folder-icon {
+    font-size: 0.9rem;
   }
-  
-  h3 {
-    margin-bottom: 0.5rem;
+
+  .count {
+    font-size: 0.75rem;
+    color: $terminal-text-dim;
+    font-weight: 400;
   }
-  
-  p {
-    color: rgba(255, 255, 255, 0.6);
+}
+
+.category-posts {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 1.5rem;
+}
+
+.category-item {
+  margin: 0;
+  padding: 0;
+
+  &:last-child .file-prefix {
+    &::before {
+      content: "└──";
+    }
+  }
+}
+
+.category-link {
+  display: flex;
+  align-items: baseline;
+  padding: 0.4rem 0;
+  text-decoration: none;
+  transition: all 0.2s ease;
+
+  &:hover {
+    .post-title {
+      color: $terminal-green;
+    }
+
+    .file-prefix {
+      color: $terminal-green-dim;
+    }
+  }
+}
+
+.file-prefix {
+  font-size: 0.8rem;
+  color: $terminal-gray-light;
+  margin-right: 0.5rem;
+  flex-shrink: 0;
+}
+
+.post-title {
+  color: $terminal-text;
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+}
+
+// Tags Page - Minimal Terminal Style
+// ===================================
+
+.tags-minimal {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.tags-header {
+  font-size: 0.85rem;
+  margin-bottom: 2rem;
+  color: $terminal-text-dim;
+
+  .prompt {
+    color: $terminal-green;
+    margin-right: 0.5rem;
+  }
+
+  .command {
+    color: $terminal-cyan;
+  }
+}
+
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid $terminal-gray-light;
+}
+
+.tag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.8rem;
+  color: $terminal-text-dim;
+  text-decoration: none;
+  border: 1px solid $terminal-gray-light;
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: $terminal-green;
+    border-color: $terminal-green-dim;
+    background: rgba($terminal-green, 0.05);
+  }
+
+  .tag-count {
+    font-size: 0.7rem;
+    color: $terminal-text-dim;
+    opacity: 0.7;
   }
 }
 
 .tag-list {
-  padding: 1rem 0;
-  
-  .tag-group {
-    margin-bottom: 2rem;
-    animation: fadeIn 0.6s ease-in-out;
-    
-    &:hover {
-      .tag-group-title {
-        transform: translateX(5px);
-      }
-    }
-  }
-  
-  .tag-group-title {
-    color: #ff5277;
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid #ff5277;
-    display: inline-block;
-    transition: transform 0.3s ease;
-    position: relative;
-    
-    &:before {
-      content: '#';
-      margin-right: 0.3rem;
-      opacity: 0.7;
-    }
-    
-    &:after {
-      content: attr(data-count);
-      font-size: 0.8rem;
-      background: #ff5277;
-      color: white;
-      padding: 0.2rem 0.5rem;
-      border-radius: 10px;
-      margin-left: 0.5rem;
-      position: relative;
-      top: -2px;
-    }
-    
-    .category-icon {
-      margin-right: 0.5rem;
-      
-      i {
-        font-size: 1.2rem;
-      }
-    }
-  }
-  
-  .tag-items {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1rem;
-  }
-  
-  .tag-item {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 8px;
-    padding: 1rem;
-    margin-bottom: 0.5rem;
-    transition: all 0.3s ease;
-    border-left: 3px solid transparent;
-    
-    &:hover {
-      border-left-color: #ff5277;
-      transform: translateX(5px);
-      background: rgba(255, 255, 255, 0.1);
-    }
-  }
-  
-  .tag-item-title {
-    font-size: 1.1rem;
-    font-weight: 500;
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    
-    &:hover {
-      color: #ff5277;
-    }
-  }
-  
-  .tag-item-date {
-    font-size: 0.8rem;
-    color: #6c757d;
-    margin-top: 0.3rem;
-  }
-  
-  .tag-item-excerpt {
-    font-size: 0.9rem;
-    margin-top: 0.5rem;
-    opacity: 0.8;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.tag-group {
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba($terminal-green, 0.1);
+
+  &:last-child {
+    border-bottom: none;
   }
 }
 
-// Category-specific colors
-.tag-group-title[id="binary-exploitation"] {
-  color: #e74c3c;
-  border-bottom-color: #e74c3c;
-  &:after { background: #e74c3c; }
+.tag-name {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: $terminal-cyan;
+  margin: 0 0 0.5rem;
 }
 
-.tag-group-title[id="windows-exploit"] {
-  color: #3498db;
-  border-bottom-color: #3498db;
-  &:after { background: #3498db; }
+.tag-posts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-.tag-group-title[id="hackthebox"] {
-  color: #2ecc71;
-  border-bottom-color: #2ecc71;
-  &:after { background: #2ecc71; }
+.tag-item {
+  margin: 0;
+  padding: 0;
 }
 
-.tag-group-title[id="rop"] {
-  color: #f39c12;
-  border-bottom-color: #f39c12;
-  &:after { background: #f39c12; }
-}
+.tag-link {
+  display: block;
+  padding: 0.4rem 0;
+  color: $terminal-text;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
 
-.tag-group-title[id="activedirectory"] {
-  color: #9b59b6;
-  border-bottom-color: #9b59b6;
-  &:after { background: #9b59b6; }
-}
+  &::before {
+    content: "→";
+    margin-right: 0.5rem;
+    color: $terminal-gray-light;
+    transition: color 0.2s ease;
+  }
 
-.tag-group-title[id="powershell"] {
-  color: #1abc9c;
-  border-bottom-color: #1abc9c;
-  &:after { background: #1abc9c; }
-}
+  &:hover {
+    color: $terminal-green;
+    padding-left: 0.5rem;
 
-.tag-group-title[id="active-directory-red-team"] {
-  color: #e74c3c;
-  border-bottom-color: #e74c3c;
-  &:after { background: #e74c3c; }
-}
-
-.tag-group-title[id="security-advisories"] {
-  color: #f1c40f;
-  border-bottom-color: #f1c40f;
-  &:after { background: #f1c40f; }
-}
-
-// Dark mode styles
-.dark-mode {
-  .category-search {
-    input {
-      background: rgba(0, 0, 0, 0.2);
-      
-      &:focus {
-        box-shadow: 0 0 0 2px rgba(255, 122, 151, 0.4);
-      }
+    &::before {
+      color: $terminal-green;
     }
   }
-  
-  .tag-list {
-    .tag-group-title {
-      color: #ff7a97;
-      border-bottom-color: #ff7a97;
-      
-      &:after {
-        background: #ff7a97;
-      }
-    }
-    
-    .tag-item {
-      background: rgba(0, 0, 0, 0.2);
-      
-      &:hover {
-        border-left-color: #ff7a97;
-        background: rgba(0, 0, 0, 0.3);
-      }
-    }
-    
-    .tag-item-title {
-      &:hover {
-        color: #ff7a97;
-      }
-    }
-  }
-  
-  // Category-specific dark mode colors
-  .tag-group-title[id="binary-exploitation"] {
-    color: #ff6b6b;
-    border-bottom-color: #ff6b6b;
-    &:after { background: #ff6b6b; }
-  }
-
-  .tag-group-title[id="windows-exploit"] {
-    color: #74b9ff;
-    border-bottom-color: #74b9ff;
-    &:after { background: #74b9ff; }
-  }
-
-  .tag-group-title[id="hackthebox"] {
-    color: #55efc4;
-    border-bottom-color: #55efc4;
-    &:after { background: #55efc4; }
-  }
-
-  .tag-group-title[id="rop"] {
-    color: #ffeaa7;
-    border-bottom-color: #ffeaa7;
-    &:after { background: #ffeaa7; }
-  }
-
-  .tag-group-title[id="activedirectory"] {
-    color: #a29bfe;
-    border-bottom-color: #a29bfe;
-    &:after { background: #a29bfe; }
-  }
-
-  .tag-group-title[id="powershell"] {
-    color: #81ecec;
-    border-bottom-color: #81ecec;
-    &:after { background: #81ecec; }
-  }
-
-  .tag-group-title[id="active-directory-red-team"] {
-    color: #ff6b6b;
-    border-bottom-color: #ff6b6b;
-    &:after { background: #ff6b6b; }
-  }
-
-  .tag-group-title[id="security-advisories"] {
-    color: #ffeaa7;
-    border-bottom-color: #ffeaa7;
-    &:after { background: #ffeaa7; }
-  }
 }
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-} 

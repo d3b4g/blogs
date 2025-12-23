@@ -1,88 +1,101 @@
-// Enhanced Navigation Links
+// Navigation - Terminal File Tree Style
+// =====================================
+
 .nav {
   margin-top: 1.5em;
-  
+
   .nav-list {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 4px;
     margin: 0;
     padding: 0;
-    
+
     @include media-query($medium-screen) {
       align-items: flex-end;
     }
   }
-  
+
   .nav-item {
     display: block;
     margin: 0;
     padding: 0;
     width: 100%;
-    
+
     &:after {
-      display: none; // Remove the slash separator
+      display: none;
     }
-    
+
     a {
       display: flex;
       align-items: center;
-      padding: 10px 15px;
-      background-color: #f8f9fa;
-      border-radius: 8px;
-      color: #555;
-      font-size: 1rem;
+      padding: 10px 14px;
+      background-color: transparent;
+      border: 1px solid transparent;
+      color: $terminal-text-dim;
+      font-size: 0.9rem;
       font-weight: 500;
       text-decoration: none;
-      text-transform: capitalize;
       transition: all 0.3s ease;
       position: relative;
-      overflow: hidden;
-      
-      &:before {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 0;
-        height: 2px;
-        background-color: #F36170;
-        transition: width 0.3s ease;
+
+      // File tree prefix
+      &::before {
+        content: '├──';
+        margin-right: 10px;
+        color: $terminal-gray-light;
+        font-size: 0.85em;
       }
-      
+
       i {
         margin-right: 8px;
-        font-size: 1.1rem;
-        transition: transform 0.3s ease;
+        font-size: 0.95rem;
+        color: $terminal-green-dim;
+        transition: all 0.3s ease;
       }
-      
+
       &:hover {
-        background-color: #F36170;
-        color: white;
-        transform: translateY(-2px);
-        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-        
+        color: $terminal-green;
+        background-color: rgba(0, 255, 65, 0.05);
+        border-color: rgba(0, 255, 65, 0.1);
+
         i {
-          transform: scale(1.2);
+          color: $terminal-green;
+          text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
         }
-        
-        &:before {
-          width: 100%;
+
+        &::before {
+          color: $terminal-green-dim;
         }
       }
-      
+
       // Active state styling
       &.active {
-        background-color: #F36170;
-        color: white;
-        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-        
+        color: $terminal-green;
+        background-color: rgba(0, 255, 65, 0.1);
+        border-color: $terminal-green-dim;
+
+        &::before {
+          content: '❯──';
+          color: $terminal-green;
+        }
+
         i {
-          transform: scale(1.1);
+          color: $terminal-green;
+          text-shadow: 0 0 8px rgba(0, 255, 65, 0.4);
         }
       }
     }
-    
+
+    // Last item uses └── instead of ├──
+    &:last-child a::before {
+      content: '└──';
+    }
+
+    &:last-child a.active::before {
+      content: '❯──';
+    }
+
     // Category count badge
     .category-count {
       display: inline-flex;
@@ -91,54 +104,47 @@
       min-width: 20px;
       height: 20px;
       padding: 0 6px;
-      margin-left: 6px;
-      font-size: 0.8rem;
+      margin-left: auto;
+      font-size: 0.75rem;
       font-weight: 600;
-      background-color: #e9ecef;
-      color: #555;
-      border-radius: 10px;
+      background-color: transparent;
+      border: 1px solid $terminal-gray-light;
+      color: $terminal-text-dim;
       transition: all 0.3s ease;
+
+      &::before {
+        content: '[';
+        opacity: 0.5;
+      }
+
+      &::after {
+        content: ']';
+        opacity: 0.5;
+      }
     }
-    
+
     a:hover .category-count {
-      background-color: white;
-      color: #F36170;
+      border-color: $terminal-green-dim;
+      color: $terminal-green;
+    }
+
+    a.active .category-count {
+      border-color: $terminal-green;
+      color: $terminal-green;
+      background-color: rgba(0, 255, 65, 0.1);
     }
   }
 }
 
-// Dark mode styles
-body.dark-mode {
-  .nav {
-    .nav-item {
-      a {
-        background-color: #333;
-        color: #e0e0e0;
-        
-        &:hover {
-          background-color: #F36170;
-          color: white;
-          box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
-        }
-        
-        &.active {
-          background-color: #F36170;
-        }
-        
-        &:before {
-          background-color: #F36170;
-        }
-      }
-      
-      .category-count {
-        background-color: #444;
-        color: #ddd;
-      }
-      
-      a:hover .category-count {
-        background-color: white;
-        color: #F36170;
-      }
-    }
+// Navigation header (add this to sidebar)
+.nav-header {
+  color: $terminal-amber;
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+  padding-left: 14px;
+
+  &::before {
+    content: '~/';
+    opacity: 0.7;
   }
-} 
+}

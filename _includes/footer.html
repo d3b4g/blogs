@@ -1,3 +1,31 @@
-<footer>
-  &copy; {{ site.time | date: '%Y' }} {{ site.owner.name }}. Powered by <a href="http://jekyllrb.com/">Jekyll</a>, <a href="http://github.com/renyuanz/leonids/">leonids theme</a> made with <i class="fa fa-heart heart-icon"></i>
+<footer class="terminal-footer">
+  <div class="footer-status-bar">
+    <div class="status-item status-connected">
+      <span class="status-indicator"></span>
+      <span class="status-text">[CONNECTED]</span>
+      <span class="status-value">ptrace.net</span>
+    </div>
+    <div class="status-divider">|</div>
+    <div class="status-item">
+      <span class="status-text">UPTIME:</span>
+      <span class="status-value status-uptime">99.9%</span>
+    </div>
+    <div class="status-divider">|</div>
+    <div class="status-item">
+      <span class="status-text">LAST BUILD:</span>
+      <span class="status-value">{{ site.time | date: '%b %Y' }}</span>
+    </div>
+  </div>
+
+  <div class="footer-prompt">
+    <span class="prompt-symbol">❯</span>
+    <span class="footer-copyright">© {{ site.time | date: '%Y' }} {{ site.owner.name }}</span>
+    <span class="footer-divider">//</span>
+    <span class="footer-links">
+      <a href="http://jekyllrb.com/">Jekyll</a>
+      <span class="link-separator">+</span>
+      <a href="http://github.com/renyuanz/leonids/">leonids</a>
+    </span>
+    <span class="cursor-blink">█</span>
+  </div>
 </footer>

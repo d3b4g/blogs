@@ -7,8 +7,24 @@ ul.tag-cloud {
   li {
     display: inline-block;
     margin-right: .5em;
+    margin-bottom: .5em;
+
     a.post-tag {
-      border-radius: 0.2em;
+      border-radius: 4px;
+      padding: 0.3em 0.6em;
+      background: rgba($terminal-green, 0.1);
+      border: 1px solid rgba($terminal-green, 0.3);
+      color: $terminal-green;
+      text-decoration: none;
+      font-family: $font-family-terminal;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: rgba($terminal-green, 0.2);
+        border-color: $terminal-green;
+        box-shadow: 0 0 10px $terminal-green-glow;
+        text-shadow: 0 0 5px $terminal-green-glow;
+      }
     }
   }
 }
@@ -16,19 +32,44 @@ ul.tag-cloud {
 .tag-list {
   .tag-group {
     margin-bottom: 2em;
+    padding: 1.5rem;
+    background: rgba($terminal-green, 0.03);
+    border: 1px solid rgba($terminal-green, 0.15);
+    border-radius: 4px;
+
     .tag-group-title {
-      color: $warning;
+      color: $terminal-amber;
       text-transform: capitalize;
+      font-family: $font-family-terminal;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba($terminal-amber, 0.3);
+
+      &:before {
+        content: "# ";
+        color: $terminal-amber-dim;
+      }
     }
 
     .tag-item {
       padding-left: 1em;
       margin-bottom: .5em;
+
       a {
-        color: $text-color;
+        color: $terminal-text;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        font-family: $font-family-terminal;
+
+        &:before {
+          content: "→ ";
+          color: $terminal-green-dim;
+        }
+
         &:hover,
         &:focus {
-          color: lighten($text-color, 24%);
+          color: $terminal-green;
+          text-shadow: 0 0 5px $terminal-green-glow;
         }
       }
     }
@@ -38,19 +79,44 @@ ul.tag-cloud {
 .cat-list {
   .cat-group {
     margin-bottom: 2em;
+    padding: 1.5rem;
+    background: rgba($terminal-cyan, 0.03);
+    border: 1px solid rgba($terminal-cyan, 0.15);
+    border-radius: 4px;
+
     .cat-group-title {
-      color: $warning;
+      color: $terminal-cyan;
       text-transform: capitalize;
+      font-family: $font-family-terminal;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba($terminal-cyan, 0.3);
+
+      &:before {
+        content: "$ ls ";
+        color: $terminal-text-dim;
+      }
     }
 
     .cat-item {
       padding-left: 1em;
       margin-bottom: .5em;
+
       a {
-        color: $danger;
+        color: $terminal-amber;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        font-family: $font-family-terminal;
+
+        &:before {
+          content: "→ ";
+          color: $terminal-amber-dim;
+        }
+
         &:hover,
         &:focus {
-          color: lighten($danger, 24%);
+          color: $terminal-green;
+          text-shadow: 0 0 5px $terminal-green-glow;
         }
       }
     }

@@ -1,0 +1,673 @@
+// Terminal Effects - CRT-style visual effects for terminal aesthetic
+// ===================================================================
+
+// Scanline overlay for CRT effect
+.scanlines {
+    position: relative;
+
+    &::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: repeating-linear-gradient(0deg,
+                rgba(0, 0, 0, 0.03),
+                rgba(0, 0, 0, 0.03) 1px,
+                transparent 1px,
+                transparent 2px);
+        pointer-events: none;
+        z-index: 9998;
+    }
+}
+
+// Terminal text glow effect
+.terminal-glow {
+    text-shadow:
+        0 0 5px currentColor,
+        0 0 10px currentColor,
+        0 0 20px currentColor;
+}
+
+.terminal-glow-subtle {
+    text-shadow:
+        0 0 2px currentColor,
+        0 0 5px rgba(0, 255, 65, 0.3);
+}
+
+// Terminal box/border styling (ASCII-inspired)
+.terminal-box {
+    background: $terminal-dark;
+    border: 1px solid $terminal-green-dim;
+    box-shadow:
+        0 0 10px rgba(0, 255, 65, 0.1),
+        inset 0 0 30px rgba(0, 0, 0, 0.3);
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(90deg,
+                transparent,
+                $terminal-green-dim,
+                transparent);
+    }
+}
+
+// Terminal window frame
+.terminal-window {
+    background: $terminal-black;
+    border: 1px solid $terminal-gray-light;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow:
+        0 4px 20px rgba(0, 0, 0, 0.5),
+        0 0 40px rgba(0, 255, 65, 0.05);
+
+    .terminal-header {
+        display: flex;
+        align-items: center;
+        padding: 8px 12px;
+        background: $terminal-gray;
+        border-bottom: 1px solid $terminal-gray-light;
+
+        .terminal-buttons {
+            display: flex;
+            gap: 6px;
+
+            span {
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+
+                &.red {
+                    background: #ff5f56;
+                }
+
+                &.yellow {
+                    background: #ffbd2e;
+                }
+
+                &.green {
+                    background: #27ca40;
+                }
+            }
+        }
+
+        .terminal-title {
+            flex: 1;
+            text-align: center;
+            font-size: 0.8rem;
+            color: $terminal-text-dim;
+            margin-right: 54px; // Offset for buttons
+        }
+    }
+
+    .terminal-body {
+        padding: 1.5rem;
+    }
+}
+
+// Blinking cursor animation
+@keyframes cursor-blink {
+
+    0%,
+    50% {
+        opacity: 1;
+    }
+
+    51%,
+    100% {
+        opacity: 0;
+    }
+}
+
+.cursor {
+    &::after {
+        content: '█';
+        color: $terminal-green;
+        animation: cursor-blink 1s step-end infinite;
+        margin-left: 2px;
+    }
+}
+
+.cursor-underscore {
+    &::after {
+        content: '_';
+        color: $terminal-green;
+        animation: cursor-blink 1s step-end infinite;
+    }
+}
+
+// Typing animation
+@keyframes typing {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+.typing-effect {
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typing 2s steps(40, end);
+}
+
+// Terminal prompt styling
+.prompt {
+    color: $terminal-green;
+
+    &::before {
+        content: '> ';
+        color: $terminal-green-dim;
+    }
+}
+
+.prompt-user {
+    color: $terminal-cyan;
+
+    &::after {
+        content: '@';
+        color: $terminal-text-dim;
+    }
+}
+
+.prompt-host {
+    color: $terminal-magenta;
+
+    &::after {
+        content: ':~$ ';
+        color: $terminal-text-dim;
+    }
+}
+
+// Glow hover effect
+.glow-hover {
+    transition: all 0.3s ease;
+
+    &:hover {
+        color: $terminal-green;
+        text-shadow:
+            0 0 5px $terminal-green,
+            0 0 10px $terminal-green,
+            0 0 20px rgba(0, 255, 65, 0.5);
+    }
+}
+
+// Terminal link styling
+.terminal-link {
+    color: $terminal-green;
+    text-decoration: none;
+    position: relative;
+
+    &::before {
+        content: '[';
+        color: $terminal-text-dim;
+    }
+
+    &::after {
+        content: ']';
+        color: $terminal-text-dim;
+    }
+
+    &:hover {
+        color: $terminal-green;
+        text-shadow: 0 0 10px $terminal-green-glow;
+    }
+}
+
+// Amber variant for secondary elements
+.terminal-amber {
+    color: $terminal-amber;
+
+    &.terminal-glow {
+        text-shadow:
+            0 0 5px $terminal-amber,
+            0 0 10px $terminal-amber;
+    }
+}
+
+// Flicker animation (subtle)
+@keyframes flicker {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    92% {
+        opacity: 1;
+    }
+
+    93% {
+        opacity: 0.8;
+    }
+
+    94% {
+        opacity: 1;
+    }
+
+    97% {
+        opacity: 0.9;
+    }
+
+    98% {
+        opacity: 1;
+    }
+}
+
+.terminal-flicker {
+    animation: flicker 5s infinite;
+}
+
+// Matrix rain effect (for decorative backgrounds)
+@keyframes matrix-rain {
+    0% {
+        transform: translateY(-100%);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(100vh);
+        opacity: 0;
+    }
+}
+
+// Pulse glow animation
+@keyframes pulse-glow {
+
+    0%,
+    100% {
+        box-shadow: 0 0 5px $terminal-green-glow;
+    }
+
+    50% {
+        box-shadow:
+            0 0 10px $terminal-green-glow,
+            0 0 20px rgba(0, 255, 65, 0.2);
+    }
+}
+
+.pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+// Category badges in terminal style
+.terminal-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    background: transparent;
+    border: 1px solid $terminal-green-dim;
+    color: $terminal-green;
+
+    &::before {
+        content: '[';
+        opacity: 0.7;
+    }
+
+    &::after {
+        content: ']';
+        opacity: 0.7;
+    }
+
+    &:hover {
+        background: rgba(0, 255, 65, 0.1);
+        box-shadow: 0 0 10px $terminal-green-glow;
+    }
+
+    // Category-specific colors
+    &.badge-hackthebox {
+        border-color: #9fef00;
+        color: #9fef00;
+    }
+
+    &.badge-security {
+        border-color: $terminal-red;
+        color: $terminal-red;
+    }
+
+    &.badge-powershell {
+        border-color: $terminal-cyan;
+        color: $terminal-cyan;
+    }
+
+    &.badge-activedirectory {
+        border-color: $terminal-amber;
+        color: $terminal-amber;
+    }
+}
+
+// ASCII box drawing characters mixin
+@mixin ascii-border {
+    position: relative;
+
+    &::before {
+        content: '┌' attr(data-title) '─┐';
+        position: absolute;
+        top: -1em;
+        left: 0;
+        color: $terminal-green-dim;
+        font-size: 0.9em;
+    }
+}
+
+// Terminal timestamp styling
+.terminal-timestamp {
+    color: $terminal-amber-dim;
+    font-size: 0.85rem;
+
+    &::before {
+        content: '[';
+    }
+
+    &::after {
+        content: ']';
+    }
+}
+
+// Command output styling
+.terminal-output {
+    color: $terminal-text;
+    padding-left: 1rem;
+    border-left: 2px solid $terminal-gray-light;
+
+    &.success {
+        border-color: $terminal-green-dim;
+    }
+
+    &.error {
+        border-color: $terminal-red;
+        color: $terminal-red;
+    }
+
+    &.warning {
+        border-color: $terminal-amber;
+        color: $terminal-amber;
+    }
+}
+
+// ===========================================
+// CRT Screen Effects
+// ===========================================
+
+// Vignette overlay - darkens edges for CRT monitor effect
+.crt-vignette {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9997;
+    background: radial-gradient(ellipse at center,
+            transparent 0%,
+            transparent 50%,
+            rgba(0, 0, 0, 0.15) 80%,
+            rgba(0, 0, 0, 0.4) 100%);
+}
+
+// CRT screen curvature effect
+.crt-curve {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9996;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(to bottom,
+                rgba(0, 255, 65, 0.02) 0%,
+                transparent 3%,
+                transparent 97%,
+                rgba(0, 255, 65, 0.02) 100%);
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(to right,
+                rgba(0, 0, 0, 0.1) 0%,
+                transparent 3%,
+                transparent 97%,
+                rgba(0, 0, 0, 0.1) 100%);
+    }
+}
+
+// Enhanced scanlines with subtle animation
+.crt-scanlines {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9998;
+    background: repeating-linear-gradient(0deg,
+            rgba(0, 0, 0, 0.03),
+            rgba(0, 0, 0, 0.03) 1px,
+            transparent 1px,
+            transparent 2px);
+    animation: scanline-move 8s linear infinite;
+}
+
+@keyframes scanline-move {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 0 100px;
+    }
+}
+
+// Screen flicker effect (very subtle)
+@keyframes screen-flicker {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    92% {
+        opacity: 1;
+    }
+
+    93% {
+        opacity: 0.97;
+    }
+
+    94% {
+        opacity: 1;
+    }
+
+    97% {
+        opacity: 0.98;
+    }
+
+    98% {
+        opacity: 1;
+    }
+}
+
+.crt-flicker {
+    animation: screen-flicker 5s infinite;
+}
+
+// Horizontal scan line that moves down the screen
+.crt-scanline-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(to bottom,
+            transparent,
+            rgba(0, 255, 65, 0.05),
+            transparent);
+    pointer-events: none;
+    z-index: 9999;
+    animation: scanline-bar 6s linear infinite;
+    opacity: 0.5;
+}
+
+@keyframes scanline-bar {
+    0% {
+        transform: translateY(-100%);
+    }
+
+    100% {
+        transform: translateY(100vh);
+    }
+}
+
+// ===========================================
+// Typing Cursor Styles
+// ===========================================
+
+.typing-cursor {
+    display: inline-block;
+    color: $terminal-green;
+    animation: cursor-blink 1s step-end infinite;
+    margin-left: 2px;
+    font-weight: normal;
+}
+
+// Text that will be typed - hidden initially
+[data-typing] {
+    visibility: hidden;
+}
+
+// ===========================================
+// ASCII Art Container
+// ===========================================
+
+.ascii-art {
+    font-family: $font-family-terminal;
+    font-size: 0.5rem;
+    line-height: 1.1;
+    color: $terminal-green-dim;
+    white-space: pre;
+    text-align: left;
+    margin: 1rem 0;
+    opacity: 0;
+    animation: ascii-fade-in 1s ease-out 0.5s forwards;
+    text-shadow: 0 0 10px $terminal-green-glow;
+
+    @media (max-width: 600px) {
+        font-size: 0.35rem;
+    }
+}
+
+@keyframes ascii-fade-in {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    100% {
+        opacity: 0.7;
+        transform: translateY(0);
+    }
+}
+
+// Glowing ASCII art
+.ascii-art-glow {
+    @extend .ascii-art;
+    animation: ascii-glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes ascii-glow {
+    0% {
+        text-shadow: 0 0 5px $terminal-green-glow;
+        opacity: 0.6;
+    }
+
+    100% {
+        text-shadow:
+            0 0 10px $terminal-green-glow,
+            0 0 20px rgba(0, 255, 65, 0.3);
+        opacity: 0.8;
+    }
+}
+
+// ===========================================
+// Page Load Animation
+// ===========================================
+
+.fade-in {
+    opacity: 0;
+    animation: fade-in-up 0.6s ease-out forwards;
+}
+
+.fade-in-delay-1 {
+    animation-delay: 0.2s;
+}
+
+.fade-in-delay-2 {
+    animation-delay: 0.4s;
+}
+
+.fade-in-delay-3 {
+    animation-delay: 0.6s;
+}
+
+.fade-in-delay-4 {
+    animation-delay: 0.8s;
+}
+
+@keyframes fade-in-up {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// Boot sequence animation
+.boot-sequence {
+    opacity: 0;
+    animation: boot-in 0.3s ease-out forwards;
+}
+
+@for $i from 1 through 10 {
+    .boot-sequence:nth-child(#{$i}) {
+        animation-delay: #{$i * 0.1}s;
+    }
+}
+
+@keyframes boot-in {
+    0% {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}

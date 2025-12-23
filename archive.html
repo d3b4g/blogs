@@ -1,114 +1,30 @@
 ---
 layout: page
-title:  Archive
+title: Archive
 permalink: /archive/
 ---
 
-<div class="archive-search">
-  <input type="text" id="archive-search-input" placeholder="Search posts...">
-  <i class="fa fa-search search-icon"></i>
-</div>
-
-<div class="archive">
-  <div class="timeline" id="timeline">
-    {% assign posts_by_year = site.posts | group_by_exp:"post", "post.date | date: '%Y' " %}
-    {% for group in posts_by_year %}
-      <div class="archive-title">
-        <h2 class="archive-year">{{ group.name }}</h2>
-      </div>
-
-      <ul class="post-list">
-      {% for post in group.items %}
-        <li class="post-item" data-title="{{ post.title | downcase }}" data-date="{{ post.date | date: '%B %d, %Y' | downcase }}">
-          <div class="post-date">
-            <span class="month">{{ post.date | date: "%b" }}</span>
-            <span class="day">{{ post.date | date: "%-d" }}</span>
-          </div>
-          <a class="post-link" href="{{ site.url }}{{ post.url }}">{{ post.title }}</a>
-          {% if post.categories.size > 0 %}
-            <span class="post-category">{{ post.categories | first }}</span>
-          {% endif %}
-        </li>
-      {% endfor %}
-      </ul>
-    {% endfor %}
+<section class="archive-minimal">
+  <div class="archive-header">
+    <span class="prompt">❯</span>
+    <span class="command">ls -la ./posts</span>
   </div>
-</div>
 
-<div class="no-results" style="display: none;">
-  <i class="fa fa-search fa-3x"></i>
-  <h3>No posts found</h3>
-  <p>Try a different search term</p>
-</div>
+  {% assign posts_by_year = site.posts | group_by_exp:"post", "post.date | date: '%Y' " %}
+  {% for group in posts_by_year %}
+  <div class="archive-year-group">
+    <h2 class="year-label">{{ group.name }}</h2>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // Add animation delay to each year group for staggered effect
-    const archiveTitles = document.querySelectorAll('.archive-title');
-    archiveTitles.forEach((title, index) => {
-      title.style.animationDelay = `${index * 0.2}s`;
-    });
-    
-    // Add animation delay to each post item for staggered effect
-    const postItems = document.querySelectorAll('.post-item');
-    postItems.forEach((item, index) => {
-      item.style.animationDelay = `${(index % 5) * 0.1}s`;
-      item.style.animation = 'fadeIn 0.5s ease-in-out forwards';
-    });
-    
-    // Search functionality
-    const searchInput = document.getElementById('archive-search-input');
-    const noResults = document.querySelector('.no-results');
-    
-    searchInput.addEventListener('input', function() {
-      const searchTerm = this.value.toLowerCase().trim();
-      const postItems = document.querySelectorAll('.post-item');
-      const archiveTitles = document.querySelectorAll('.archive-title');
-      const postLists = document.querySelectorAll('.post-list');
-      
-      let foundAny = false;
-      
-      // Reset all years to visible
-      archiveTitles.forEach(title => {
-        title.style.display = 'block';
-      });
-      
-      postLists.forEach(list => {
-        list.style.display = 'block';
-      });
-      
-      // Filter items based on search term
-      postItems.forEach(item => {
-        const title = item.getAttribute('data-title');
-        const date = item.getAttribute('data-date');
-        const category = item.querySelector('.post-category')?.textContent.toLowerCase() || '';
-        
-        if (searchTerm === '' || 
-            title.includes(searchTerm) || 
-            date.includes(searchTerm) ||
-            category.includes(searchTerm)) {
-          item.style.display = 'block';
-          foundAny = true;
-        } else {
-          item.style.display = 'none';
-        }
-      });
-      
-      // Hide empty years
-      postLists.forEach((list, index) => {
-        const visibleItems = list.querySelectorAll('.post-item[style="display: block"]');
-        if (visibleItems.length === 0) {
-          list.style.display = 'none';
-          archiveTitles[index].style.display = 'none';
-        }
-      });
-      
-      // Show or hide no results message
-      if (!foundAny && searchTerm !== '') {
-        noResults.style.display = 'flex';
-      } else {
-        noResults.style.display = 'none';
-      }
-    });
-  });
-</script>
+    <ul class="archive-list">
+      {% for post in group.items %}
+      <li class="archive-item">
+        <a href="{{ site.url }}{{ post.url }}" class="archive-link">
+          <span class="archive-date">{{ post.date | date: "%b %d" }}</span>
+          <span class="archive-title">{{ post.title }}</span>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endfor %}
+</section>

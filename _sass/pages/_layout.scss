@@ -1,4 +1,4 @@
-/* LAYOUT CSS */
+/* LAYOUT CSS - Terminal Theme */
 .cover {
   background-color: $background-color;
   position: fixed;
@@ -7,90 +7,126 @@
   min-height: 400px;
   padding: 30px 15px 20px;
   z-index: 1;
+
   @include media-query($small-screen) {
     background-position: center;
     padding: 30px;
   }
+
   @include media-query($medium-screen) {
     height: 100vh;
     position: initial;
     width: 100%;
   }
 }
+
 .cover-card {
   color: $text-color;
   padding: 0 30px;
+
   .avatar {
     border-radius: 50%;
     width: 100px;
     height: 100px;
     float: none;
+    border: 2px solid $terminal-green;
+    box-shadow: 0 0 20px $terminal-green-glow;
   }
+
   .author_name {
     display: block;
-    color: #F36170;
+    color: $terminal-green;
     font-size: 1.75em;
     text-transform: lowercase;
+    font-family: $font-family-terminal;
+    text-shadow: 0 0 10px $terminal-green-glow;
+
+    &:before {
+      content: "./";
+      color: $terminal-green-dim;
+    }
   }
+
   .author_job {
     display: block;
-    color: $secondary;
+    color: $terminal-amber;
     font-size: 0.8em;
     font-weight: 700;
     text-transform: uppercase;
     margin: -5px auto 10px;
+    font-family: $font-family-terminal;
   }
+
   .author_bio {
     font-size: 90%;
     display: block;
+    color: $terminal-text-dim;
   }
+
   @include media-query($medium-screen) {
     text-align: right;
     margin: 0 auto;
     padding: 0 0px 80px;
   }
 }
+
 .social-links {
   margin-top: 0.5em;
+
   ul {
     margin: 0;
     padding: 0;
+
     li {
       list-style: none;
       display: inline-block;
       margin-left: 1em;
+
       a.social-link-item {
-        color: $secondary;
+        color: $terminal-text-dim;
+        transition: all 0.3s ease;
+
         &:hover,
         &:focus {
-          color: lighten($secondary, 14%);
+          color: $terminal-green;
+          text-shadow: 0 0 8px $terminal-green-glow;
         }
       }
     }
   }
 }
+
 .nav-list {
   margin: 0;
   padding: 0;
   list-style: none;
+
   .nav-item {
     display: inline-block;
     *display: inline;
     zoom: 1;
+
     &:after {
       content: '/';
+      color: $terminal-text-dim;
     }
+
     &:last-child:after {
       content: '';
     }
+
     & a {
       margin-top: 1em;
       text-transform: lowercase;
       font-size: 85%;
-      color: $secondary;
+      color: $terminal-text-dim;
+      font-family: $font-family-terminal;
+      transition: all 0.3s ease;
+
       &:hover,
       &:focus {
-        color: lighten($secondary, 14%);
+        color: $terminal-green;
+        text-shadow: 0 0 5px $terminal-green-glow;
       }
     }
   }

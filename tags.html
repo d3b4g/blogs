@@ -1,30 +1,39 @@
 ---
 layout: page
-title:  Tags
+title: Tags
 permalink: /tags/
 ---
 
-<h5>Tag cloud <i class="fa fa-cloud info-text-color"></i></h5>
-<ul class="tag-cloud">
-{% for tag in site.tags %}
-  <li style="font-size: {{ tag | last | size | times: 100 | divided_by: site.tags.size | plus: 70  }}%">
-    <a class="post-tag" href="#{{ tag | first | slugize }}">
-      {{ tag | first }}
-    </a>
-  </li>
-{% endfor %}
-</ul>
+<section class="tags-minimal">
+  <div class="tags-header">
+    <span class="prompt">❯</span>
+    <span class="command">grep -r "tags" ./posts</span>
+  </div>
 
-<div class="tag-list">
-{% for tag in site.tags %}
-  <div class="tag-group">
-    {% capture tag_name %}{{ tag | first }}{% endcapture %}
-    <h5 class="tag-group-title" id="{{ tag_name | slugize }}">{{ tag_name }}</h5>
-    {% for post in site.tags[tag_name] %}
-    <article class="tag-item">
-      <a class="tag-item-title" href="{{ site.url }}{{ post.url }}">{{post.title}}</a>
-    </article>
+  <div class="tag-cloud">
+    {% for tag in site.tags %}
+    <a href="#{{ tag | first | slugize }}" class="tag-pill">
+      #{{ tag | first }}
+      <span class="tag-count">{{ tag | last | size }}</span>
+    </a>
     {% endfor %}
   </div>
-{% endfor %}
-</div>
+
+  <div class="tag-list">
+    {% for tag in site.tags %}
+    {% capture tag_name %}{{ tag | first }}{% endcapture %}
+
+    <div class="tag-group" id="{{ tag_name | slugize }}">
+      <h3 class="tag-name">#{{ tag_name }}</h3>
+
+      <ul class="tag-posts">
+        {% for post in site.tags[tag_name] %}
+        <li class="tag-item">
+          <a href="{{ site.url }}{{ post.url }}" class="tag-link">{{ post.title }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endfor %}
+  </div>
+</section>
