@@ -41,7 +41,7 @@
 
       // File tree prefix
       &::before {
-        content: '├──';
+        content: ' ';
         margin-right: 10px;
         color: $terminal-gray-light;
         font-size: 0.85em;
@@ -56,12 +56,11 @@
 
       &:hover {
         color: $terminal-green;
-        background-color: rgba(0, 255, 65, 0.05);
-        border-color: rgba(0, 255, 65, 0.1);
+        background-color: rgba(94, 106, 210, 0.05);
+        border-color: rgba(94, 106, 210, 0.1);
 
         i {
           color: $terminal-green;
-          text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
         }
 
         &::before {
@@ -72,28 +71,27 @@
       // Active state styling
       &.active {
         color: $terminal-green;
-        background-color: rgba(0, 255, 65, 0.1);
+        background-color: rgba(94, 106, 210, 0.1);
         border-color: $terminal-green-dim;
 
         &::before {
-          content: '❯──';
+          content: ' ';
           color: $terminal-green;
         }
 
         i {
           color: $terminal-green;
-          text-shadow: 0 0 8px rgba(0, 255, 65, 0.4);
         }
       }
     }
 
-    // Last item uses └── instead of ├──
+    // Last item uses   instead of  
     &:last-child a::before {
-      content: '└──';
+      content: ' ';
     }
 
     &:last-child a.active::before {
-      content: '❯──';
+      content: ' ';
     }
 
     // Category count badge
@@ -131,7 +129,7 @@
     a.active .category-count {
       border-color: $terminal-green;
       color: $terminal-green;
-      background-color: rgba(0, 255, 65, 0.1);
+      background-color: rgba(94, 106, 210, 0.1);
     }
   }
 }

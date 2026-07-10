@@ -1,0 +1,33 @@
+<header class="site-header">
+  <div class="header-inner">
+    <a href="{{ site.url }}{{ site.baseurl }}/" class="header-brand">
+      <span class="brand-glyph" aria-hidden="true">&gt;_</span>
+      <span class="brand-name">{{ site.title }}</span>
+    </a>
+
+    <nav class="header-nav">
+      <a href="{{ site.url }}{{ site.baseurl }}/" class="nav-link {% if page.url == '/' %}active{% endif %}">Home</a>
+      <a href="{{ site.url }}{{ site.baseurl }}/archive/"
+        class="nav-link {% if page.url contains 'archive' %}active{% endif %}">Archive</a>
+      <a href="{{ site.url }}{{ site.baseurl }}/categories/"
+        class="nav-link {% if page.url contains 'categories' %}active{% endif %}">Categories</a>
+      {% if site.tags != empty %}
+      <a href="{{ site.url }}{{ site.baseurl }}/tags/"
+        class="nav-link {% if page.url contains 'tags' %}active{% endif %}">Tags</a>
+      {% endif %}
+    </nav>
+
+    <div class="header-social">
+      {% if site.owner.github %}
+      <a href="https://github.com/{{ site.owner.github }}" class="social-link" aria-label="GitHub">
+        <i class="fa fa-github"></i>
+      </a>
+      {% endif %}
+      {% if site.owner.twitter %}
+      <a href="https://twitter.com/{{ site.owner.twitter }}" class="social-link" aria-label="Twitter">
+        <i class="fa fa-twitter"></i>
+      </a>
+      {% endif %}
+    </div>
+  </div>
+</header>

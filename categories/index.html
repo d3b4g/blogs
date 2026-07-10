@@ -6,8 +6,8 @@ permalink: /categories/
 
 <section class="categories-minimal">
   <div class="categories-header">
-    <span class="prompt">❯</span>
-    <span class="command">tree ./categories</span>
+    <h1 class="page-heading">Categories</h1>
+    <p class="page-subheading">Posts grouped by category.</p>
   </div>
 
   <div class="category-list">
@@ -17,16 +17,14 @@ permalink: /categories/
 
     <div class="category-group">
       <h2 class="category-name" id="{{ cat_name | slugize }}">
-        <span class="folder-icon">📁</span>
         {{ cat_name }}
-        <span class="count">[{{ post_count }}]</span>
+        <span class="count">{{ post_count }}</span>
       </h2>
 
       <ul class="category-posts">
         {% for post in site.categories[cat_name] %}
         <li class="category-item">
           <a href="{{ site.url }}{{ post.url }}" class="category-link">
-            <span class="file-prefix">├──</span>
             <span class="post-title">{{ post.title }}</span>
           </a>
         </li>

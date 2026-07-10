@@ -10,7 +10,6 @@
       height: 100%;
       width: 4px;
       background: linear-gradient(180deg, $terminal-green, rgba($terminal-green, 0.2));
-      box-shadow: 0 0 10px $terminal-green-glow;
     }
 
     &:after {
@@ -28,7 +27,6 @@
       margin-left: 1em;
       color: $terminal-green;
       font-family: $font-family-terminal;
-      text-shadow: 0 0 10px $terminal-green-glow;
 
       &:before {
         content: " ";
@@ -41,7 +39,6 @@
         height: 8px;
         background: $terminal-green;
         border-radius: 50%;
-        box-shadow: 0 0 10px $terminal-green-glow;
       }
     }
   }
@@ -59,7 +56,6 @@
 
         &:hover {
           color: $terminal-green;
-          text-shadow: 0 0 5px $terminal-green-glow;
         }
       }
     }

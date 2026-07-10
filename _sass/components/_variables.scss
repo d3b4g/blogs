@@ -1,9 +1,10 @@
 /*
- * Global Variables - Terminal Aesthetic Theme
+ * Global Variables - Linear-inspired Theme
+ * Palette and typography modeled on linear.app/brand
  */
 
-// Terminal Monospace Fonts
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap');
+// Inter for UI/body, JetBrains Mono for code
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 // Custom variables
 
@@ -17,67 +18,74 @@ $spacer-x:                   $spacer !default;
 $spacer-y:                   $spacer !default;
 $border-width:               .0625rem !default;
 
-// Typography - Terminal Style
+// Typography - Linear Style
 //
-// Monospace-first font stack for authentic terminal feel
+// Inter-first stack, crisp and neutral
 
-$font-family-terminal:       "JetBrains Mono", "Fira Code", "Roboto Mono", "Courier New", monospace !default;
-$font-family-sans-serif:     $font-family-terminal !default;
-$font-family-serif:          $font-family-terminal !default;
-$font-family-monospace:      $font-family-terminal !default;
-$font-family-base:           $font-family-terminal !default;
+$font-family-inter:          "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif !default;
+$font-family-mono:           "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace !default;
+$font-family-sans-serif:     $font-family-inter !default;
+$font-family-serif:          $font-family-inter !default;
+$font-family-monospace:      $font-family-mono !default;
+$font-family-base:           $font-family-inter !default;
+
+// Kept for compatibility with components that reference the old name.
+// The old theme used this for UI text, so it now maps to Inter;
+// real code blocks use $font-family-monospace instead.
+$font-family-terminal:       $font-family-inter !default;
 
 // Pixel value used to responsively scale all typography. Applied to the `<html>` element.
-$font-size-root:             14px !default;
+$font-size-root:             16px !default;
 
 $font-size-base:             $font-size-root !default;
 $font-size-lg:               $font-size-root * 1.25 !default;
 $font-size-sm:               $font-size-root * 0.875 !default;
 $font-size-xs:               $font-size-root * 0.75 !default;
 
-$font-size-h1:               1.8rem !default;
+$font-size-h1:               2rem !default;
 $font-size-h2:               1.5rem !default;
-$font-size-h3:               1.3rem !default;
-$font-size-h4:               1.15rem !default;
-$font-size-h5:               1.05rem !default;
-$font-size-h6:               1rem !default;
+$font-size-h3:               1.25rem !default;
+$font-size-h4:               1.1rem !default;
+$font-size-h5:               1rem !default;
+$font-size-h6:               0.9rem !default;
 
 $base-line-height:            1.6;
 $base-space-unit:             1.5em;
 
-$hr-border-color:             rgba(0, 255, 65, 0.2) !default;
+$hr-border-color:             rgba(255, 255, 255, 0.08) !default;
 $hr-border-width:             $border-width;
 
 //
-// Terminal Color Palette
+// Linear Color Palette
+// (variable names kept from the previous theme so existing partials
+//  pick up the new palette without edits)
 //
 
-// Core terminal colors
-$terminal-black:       #0a0a0a;
-$terminal-dark:        #0d1117;
-$terminal-gray:        #161b22;
-$terminal-gray-light:  #21262d;
+// Core surfaces
+$terminal-black:       #08090a;   // page background
+$terminal-dark:        #08090a;   // page background
+$terminal-gray:        #101113;   // raised surface / cards
+$terminal-gray-light:  #26282d;   // borders / dividers
 
-// Phosphor green (primary)
-$terminal-green:       #00ff41;
-$terminal-green-dim:   #00cc33;
-$terminal-green-dark:  #00aa28;
-$terminal-green-glow:  rgba(0, 255, 65, 0.4);
+// Indigo accent (primary)     Linear brand #5e6ad2, #828fff for text on dark
+$terminal-green:       #828fff;
+$terminal-green-dim:   #5e6ad2;
+$terminal-green-dark:  #4c58c4;
+$terminal-green-glow:  rgba(94, 106, 210, 0.25);
 
-// Amber (secondary/accent)
-$terminal-amber:       #ffb000;
-$terminal-amber-dim:   #cc8800;
-$terminal-amber-glow:  rgba(255, 176, 0, 0.4);
+// Secondary accents (Linear label colors)
+$terminal-amber:       #f2994a;
+$terminal-amber-dim:   #d97e2e;
+$terminal-amber-glow:  rgba(242, 153, 74, 0.25);
 
-// Additional terminal colors
-$terminal-cyan:        #00d4ff;
-$terminal-red:         #ff4444;
-$terminal-magenta:     #ff79c6;
+$terminal-cyan:        #4ea7fc;
+$terminal-red:         #eb5757;
+$terminal-magenta:     #b59aff;
 
 // Text colors
-$terminal-text:        #c9d1d9;
-$terminal-text-dim:    #8b949e;
-$terminal-text-bright: #f0f6fc;
+$terminal-text:        #d0d6e0;
+$terminal-text-dim:    #8a8f98;
+$terminal-text-bright: #f7f8f8;
 
 // Map to existing variable names for compatibility
 $text-color:       $terminal-text;
@@ -86,13 +94,13 @@ $background-color: $terminal-dark;
 $white:            $terminal-gray;
 $primary:          $terminal-green;
 $secondary:        $terminal-text-dim;
-$success:          $terminal-green;
+$success:          #4cb782;
 $danger:           $terminal-red;
 $warning:          $terminal-amber;
 $info:             $terminal-cyan;
 
 // Tables
-$table-border-color: $terminal-green-dim !default;
+$table-border-color: $terminal-gray-light !default;
 $table-striped-color: $terminal-gray !default;
 
 // Grid Variables

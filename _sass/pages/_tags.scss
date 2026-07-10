@@ -22,8 +22,6 @@ ul.tag-cloud {
       &:hover {
         background: rgba($terminal-green, 0.2);
         border-color: $terminal-green;
-        box-shadow: 0 0 10px $terminal-green-glow;
-        text-shadow: 0 0 5px $terminal-green-glow;
       }
     }
   }
@@ -62,14 +60,13 @@ ul.tag-cloud {
         font-family: $font-family-terminal;
 
         &:before {
-          content: "→ ";
+          content: "  ";
           color: $terminal-green-dim;
         }
 
         &:hover,
         &:focus {
           color: $terminal-green;
-          text-shadow: 0 0 5px $terminal-green-glow;
         }
       }
     }
@@ -109,14 +106,13 @@ ul.tag-cloud {
         font-family: $font-family-terminal;
 
         &:before {
-          content: "→ ";
+          content: "  ";
           color: $terminal-amber-dim;
         }
 
         &:hover,
         &:focus {
           color: $terminal-green;
-          text-shadow: 0 0 5px $terminal-green-glow;
         }
       }
     }

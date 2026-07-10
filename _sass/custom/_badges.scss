@@ -1,0 +1,42 @@
+// Category Badges - shared between post pages and the homepage list
+// ==================================================================
+
+.category-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 500;
+  padding: 2px 9px;
+  color: $terminal-text;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.category-activedirectory,
+.category-active-directory-red-team {
+  border-color: rgba(242, 153, 74, 0.4);
+  color: $terminal-amber;
+}
+
+.category-rop,
+.category-binary-exploitation {
+  border-color: rgba(235, 87, 87, 0.4);
+  color: $terminal-red;
+}
+
+.category-hackthebox {
+  border-color: rgba(76, 183, 130, 0.4);
+  color: #4cb782;
+}
+
+.category-powershell {
+  border-color: rgba(78, 167, 252, 0.4);
+  color: $terminal-cyan;
+}
+
+.category-security-advisories {
+  border-color: rgba(181, 154, 255, 0.4);
+  color: $terminal-magenta;
+}

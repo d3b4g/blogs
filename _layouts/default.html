@@ -3,28 +3,17 @@
 
 {% include head.html %}
 
-<body class="crt-flicker">
-  <!-- CRT Screen Effects -->
-  <div class="crt-vignette"></div>
-  <div class="crt-curve"></div>
-  <div class="crt-scanlines"></div>
-  <div class="crt-scanline-bar"></div>
+<body>
+  <div class="page-glow" aria-hidden="true"></div>
 
-  <div class="row">
-    <div class="col s12 m3">
-      <div class="table cover">
-        {% include sidebar.html %}
-      </div>
-    </div>
-    <div class="col s12 m9">
-      <div class="post-listing">
-        {{ content }}
-        {% include footer.html %}
-      </div>
-    </div>
-  </div>
+  {% include topnav.html %}
+
+  <main class="site-main">
+    {{ content }}
+    {% include footer.html %}
+  </main>
+
   {% include back-to-top.html %}
-  {% include dark-mode-toggle.html %}
   {% include js.html %}
 </body>
 

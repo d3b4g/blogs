@@ -1,173 +1,135 @@
-// Sidebar - Terminal Style (Navigation Only)
-// ===========================================
+// Top Navbar - Linear Style Header
+// (file kept as _sidebar.scss so main.scss imports stay unchanged)
+// =================================================================
 
-.sidebar-terminal {
-  background: $terminal-black;
-  border: 1px solid $terminal-gray-light;
-  border-radius: 6px;
-  overflow: hidden;
-  margin: 1rem;
-
-  @include media-query($medium-screen) {
-    position: sticky;
-    top: 1rem;
-    margin: 0;
-  }
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(8, 9, 10, 0.8);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-// Terminal Header
-.terminal-header {
+.header-inner {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  height: 56px;
   display: flex;
   align-items: center;
-  padding: 10px 14px;
-  background: $terminal-gray;
-  border-bottom: 1px solid $terminal-gray-light;
-  gap: 6px;
-
-  .terminal-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-
-    &.red {
-      background: #ff5f56;
-    }
-
-    &.yellow {
-      background: #ffbd2e;
-    }
-
-    &.green {
-      background: #27ca40;
-    }
-  }
-
-  .terminal-title {
-    flex: 1;
-    text-align: center;
-    font-size: 0.75rem;
-    color: $terminal-text-dim;
-    margin-right: 40px;
-  }
+  gap: 1.5rem;
 }
 
-// Sidebar Content
-.sidebar-content {
-  padding: 1rem;
+// Brand
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+  flex-shrink: 0;
+
+  .brand-glyph {
+    font-family: $font-family-mono;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: $terminal-green;
+    letter-spacing: -0.05em;
+    flex-shrink: 0;
+  }
+
+  .brand-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: $terminal-text-bright;
+    letter-spacing: -0.01em;
+  }
+
+  &:hover .brand-name {
+    color: $terminal-green;
+  }
 }
 
 // Navigation
-.sidebar-nav {
-  display: flex;
-  flex-direction: column;
-}
-
-.nav-link {
+.header-nav {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.6rem 0.5rem;
-  color: $terminal-text-dim;
-  text-decoration: none;
-  font-size: 0.85rem;
-  transition: all 0.2s ease;
-  border-radius: 3px;
-
-  &:hover {
-    color: $terminal-green;
-    background: rgba($terminal-green, 0.05);
-
-    .nav-prefix {
-      color: $terminal-green-dim;
-    }
-  }
-
-  &.active {
-    color: $terminal-green;
-    background: rgba($terminal-green, 0.1);
-
-    .nav-prefix {
-      color: $terminal-green;
-    }
-  }
-}
-
-.nav-prefix {
-  color: $terminal-gray-light;
-  font-size: 0.75rem;
-  flex-shrink: 0;
-}
-
-.nav-icon {
-  font-size: 0.85rem;
-  color: $terminal-green-dim;
-  font-weight: 600;
-  width: 1rem;
-  text-align: center;
-}
-
-.nav-text {
+  gap: 0.25rem;
   flex: 1;
+
+  .nav-link {
+    padding: 0.35rem 0.75rem;
+    color: $terminal-text-dim;
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: 6px;
+    transition: all 0.15s ease;
+
+    &:hover {
+      color: $terminal-text-bright;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    &.active {
+      color: $terminal-text-bright;
+      background: rgba(255, 255, 255, 0.07);
+    }
+  }
 }
 
-.nav-count {
-  font-size: 0.7rem;
-  color: $terminal-text-dim;
-}
-
-// Social Links
-.sidebar-social {
-  display: flex;
-  gap: 0.5rem;
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid $terminal-gray-light;
-  justify-content: center;
-}
-
-.social-link {
+// Social icons (right side)
+.header-social {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  color: $terminal-text-dim;
-  border: 1px solid $terminal-gray-light;
-  transition: all 0.2s ease;
+  gap: 0.25rem;
 
-  &:hover {
-    color: $terminal-green;
-    border-color: $terminal-green-dim;
-    background: rgba($terminal-green, 0.1);
-    box-shadow: 0 0 10px $terminal-green-glow;
-  }
+  .social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    color: $terminal-text-dim;
+    border-radius: 6px;
+    transition: all 0.15s ease;
 
-  i {
-    font-size: 0.9rem;
+    &:hover {
+      color: $terminal-text-bright;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    i {
+      font-size: 0.9rem;
+    }
   }
+}
+
+// Main content column
+.site-main {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
 }
 
 // Responsive
-@media (max-width: 992px) {
-  .sidebar-terminal {
-    margin: 1rem;
+@media (max-width: 600px) {
+  .header-inner {
+    gap: 0.75rem;
+    padding: 0 1rem;
   }
 
-  .sidebar-nav {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+  .header-nav .nav-link {
+    padding: 0.35rem 0.5rem;
+    font-size: 0.8rem;
   }
 
-  .nav-link {
-    padding: 0.5rem 0.75rem;
-  }
-
-  .nav-prefix {
+  .header-brand .brand-name {
     display: none;
   }
 
-  .sidebar-social {
-    justify-content: flex-start;
+  .header-social {
+    display: none;
   }
 }

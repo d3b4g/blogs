@@ -6,21 +6,24 @@
 <style>
     .back-to-top {
         position: fixed;
-        bottom: 80px;
-        right: 20px;
-        width: 44px;
-        height: 44px;
-        background: #161b22;
-        border: 1px solid #21262d;
-        color: #8b949e;
+        bottom: 24px;
+        right: 24px;
+        width: 40px;
+        height: 40px;
+        background: rgba(16, 17, 19, 0.9);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        color: #8a8f98;
         cursor: pointer;
         opacity: 0;
         visibility: hidden;
-        transition: all 0.3s ease;
+        transition: all 0.15s ease;
         z-index: 998;
         display: flex;
         align-items: center;
         justify-content: center;
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px);
     }
 
     .back-to-top.visible {
@@ -29,10 +32,9 @@
     }
 
     .back-to-top:hover {
-        background: #21262d;
-        border-color: #00ff41;
-        color: #00ff41;
-        box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
+        color: #f7f8f8;
+        border-color: rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.06);
     }
 
     .back-to-top-icon {
@@ -43,10 +45,10 @@
 
     @media (max-width: 768px) {
         .back-to-top {
-            bottom: 70px;
-            right: 15px;
-            width: 40px;
-            height: 40px;
+            bottom: 16px;
+            right: 16px;
+            width: 36px;
+            height: 36px;
         }
     }
 </style>

@@ -20,7 +20,7 @@
 
   // Terminal window header
   &::before {
-    content: '● ○ ○';
+    content: '     ';
     display: block;
     padding: 8px 12px;
     background: $terminal-gray;
@@ -33,12 +33,11 @@
   &:hover {
     border-color: $terminal-green-dim;
     box-shadow:
-      0 0 20px rgba(0, 255, 65, 0.15),
+      0 0 20px rgba(94, 106, 210, 0.15),
       0 8px 32px rgba(0, 0, 0, 0.4);
 
     .post-title a {
       color: $terminal-green;
-      text-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
     }
 
     .read-more {
@@ -132,7 +131,7 @@
       right: 0;
       bottom: 0;
       background:
-        linear-gradient(rgba(0, 255, 65, 0.03), rgba(0, 255, 65, 0.03)),
+        linear-gradient(rgba(94, 106, 210, 0.03), rgba(94, 106, 210, 0.03)),
         repeating-linear-gradient(0deg,
           rgba(0, 0, 0, 0.05),
           rgba(0, 0, 0, 0.05) 1px,
@@ -209,7 +208,6 @@
 
       &:hover {
         color: $terminal-green;
-        text-shadow: 0 0 5px rgba(0, 255, 65, 0.3);
       }
     }
   }
@@ -239,7 +237,7 @@
     }
 
     &::after {
-      content: '→';
+      content: ' ';
       margin-left: 8px;
       transition: transform 0.3s ease;
     }
@@ -303,7 +301,7 @@
       right: 0;
       bottom: 0;
       background:
-        linear-gradient(rgba(0, 255, 65, 0.02), rgba(0, 255, 65, 0.02)),
+        linear-gradient(rgba(94, 106, 210, 0.02), rgba(94, 106, 210, 0.02)),
         repeating-linear-gradient(0deg,
           rgba(0, 0, 0, 0.05),
           rgba(0, 0, 0, 0.05) 1px,
@@ -353,14 +351,14 @@ h6 {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);
+  box-shadow: 0 0 15px rgba(94, 106, 210, 0.2);
   z-index: 999;
   transition: all 0.3s ease;
 
   &:hover {
     background: $terminal-gray-light;
     border-color: $terminal-green;
-    box-shadow: 0 0 20px rgba(0, 255, 65, 0.4);
+    box-shadow: 0 0 20px rgba(94, 106, 210, 0.4);
   }
 
   i {
@@ -446,9 +444,9 @@ h6 {
   }
 
   &:hover {
-    background: rgba(0, 255, 65, 0.1);
+    background: rgba(94, 106, 210, 0.1);
     border-color: $terminal-green;
-    box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+    box-shadow: 0 0 20px rgba(94, 106, 210, 0.2);
 
     i {
       transform: translateX(5px);
@@ -467,7 +465,7 @@ h6 {
 
   // Terminal header
   &::before {
-    content: '● ○ ○  featured.md';
+    content: '       featured.md';
     position: absolute;
     top: 0;
     left: 0;
@@ -482,7 +480,7 @@ h6 {
 
   &:hover {
     border-color: $terminal-green-dim;
-    box-shadow: 0 0 30px rgba(0, 255, 65, 0.1);
+    box-shadow: 0 0 30px rgba(94, 106, 210, 0.1);
   }
 }
 
@@ -551,7 +549,6 @@ h6 {
 
     &:hover {
       color: $terminal-green;
-      text-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
     }
   }
 }
@@ -594,7 +591,6 @@ h6 {
   }
 
   &:hover {
-    text-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
 
     i {
       transform: translateX(5px);

@@ -5,29 +5,14 @@ permalink: /
 
 <section class="hero-minimal fade-in">
   <div class="hero-content">
-    <!-- ASCII Art Logo -->
-    <pre class="ascii-art" aria-hidden="true">
-    ██████╗ ████████╗██████╗  █████╗  ██████╗███████╗
-    ██╔══██╗╚══██╔══╝██╔══██╗██╔══██╗██╔════╝██╔════╝
-    ██████╔╝   ██║   ██████╔╝███████║██║     █████╗  
-    ██╔═══╝    ██║   ██╔══██╗██╔══██║██║     ██╔══╝  
-    ██║        ██║   ██║  ██║██║  ██║╚██████╗███████╗
-    ╚═╝        ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚══════╝
-    </pre>
-
-    <div class="prompt-line fade-in fade-in-delay-1">
-      <span class="prompt">❯</span>
-      <span class="command">whoami</span>
-    </div>
-
-    <h1 class="hero-name">shabnoon khalid</h1>
+    <h1 class="hero-name fade-in fade-in-delay-1">Attached to interesting processes.</h1>
     <p class="hero-role fade-in fade-in-delay-2">
-      <span class="terminal-prefix">$ </span>cat /dev/random > thoughts.log
+      Notes on red teaming, binary exploitation, and the systems in between.
     </p>
 
     <div class="hero-links fade-in fade-in-delay-3">
-      <a href="{{ site.url }}/archive/" class="hero-link">posts</a>
-      <a href="{{ site.url }}/categories/" class="hero-link">categories</a>
+      <a href="{{ site.url }}/archive/" class="hero-link hero-link-primary">Read the posts</a>
+      <a href="{{ site.url }}/categories/" class="hero-link">Browse categories</a>
     </div>
 
     <div class="social-row fade-in fade-in-delay-4">
@@ -41,18 +26,34 @@ permalink: /
 </section>
 
 <section class="posts-section">
-  <h2 class="section-title">Recent</h2>
+  <h2 class="section-title">Recent writing</h2>
 
   <div class="post-list-minimal">
     {% for post in site.posts limit:5 %}
     <article class="post-item-minimal">
       <a href="{{ site.url }}{{ site.baseurl }}{{ post.url }}" class="post-link-minimal">
-        <span class="post-title-minimal">{{ post.title }}</span>
-        <span class="post-date-minimal">{{ post.date | date: "%b %d" }}</span>
+        <div class="post-item-head">
+          <span class="post-title-minimal">{{ post.title }}</span>
+          <span class="post-date-minimal">{{ post.date | date: "%b %d, %Y" }}</span>
+        </div>
+
+        {% if post.excerpt %}
+        <p class="post-excerpt-minimal">{{ post.excerpt | strip_html | strip_newlines | truncate: 130 }}</p>
+        {% endif %}
+
+        <div class="post-item-meta">
+          {% for cat in post.categories %}
+          <span class="category-badge category-{{ cat | slugify }}">{{ cat }}</span>
+          {% endfor %}
+          {% assign words = post.content | number_of_words %}
+          <span class="post-readtime-minimal">
+            {% if words < 360 %}1 min read{% else %}{{ words | divided_by: 180 }} min read{% endif %}
+          </span>
+        </div>
       </a>
     </article>
     {% endfor %}
   </div>
 
-  <a href="{{ site.url }}/archive/" class="view-all-link">view all →</a>
+  <a href="{{ site.url }}/archive/" class="view-all-link">View all posts →</a>
 </section>

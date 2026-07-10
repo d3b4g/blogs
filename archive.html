@@ -6,8 +6,8 @@ permalink: /archive/
 
 <section class="archive-minimal">
   <div class="archive-header">
-    <span class="prompt">❯</span>
-    <span class="command">ls -la ./posts</span>
+    <h1 class="page-heading">Archive</h1>
+    <p class="page-subheading">All posts, in chronological order.</p>
   </div>
 
   {% assign posts_by_year = site.posts | group_by_exp:"post", "post.date | date: '%Y' " %}

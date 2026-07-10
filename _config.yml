@@ -5,7 +5,7 @@
 #
 title: ptrace.net
 email: shabnoon@ptrace.net
-description: Random rambles of a infosec 
+description: Attached to interesting processes. Notes on red teaming, binary exploitation, and infosec.
 url: https://ptrace.net
 baseurl: ""
 keywords: ["blog", "jekyll"]

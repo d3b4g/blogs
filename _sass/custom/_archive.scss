@@ -1,45 +1,29 @@
-// Archive Page - Minimal Terminal Style
-// =====================================
+// Archive Page - Linear Style
+// ============================
 
 .archive-minimal {
   max-width: 600px;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 2rem 1rem 0;
 }
 
 .archive-header {
-  font-size: 0.85rem;
   margin-bottom: 2rem;
-  color: $terminal-text-dim;
-
-  .prompt {
-    color: $terminal-green;
-    margin-right: 0.5rem;
-  }
-
-  .command {
-    color: $terminal-cyan;
-  }
 }
 
 .archive-year-group {
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
 }
 
 .year-label {
-  font-size: 1rem;
-  font-weight: 600;
-  color: $terminal-amber;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: $terminal-text-dim;
   margin: 0 0 0.75rem;
   padding-bottom: 0.5rem;
-  border-bottom: 1px solid rgba($terminal-amber, 0.3);
-
-  &::before {
-    content: "//";
-    margin-right: 0.5rem;
-    color: $terminal-gray-light;
-    opacity: 0.6;
-  }
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .archive-list {
@@ -51,7 +35,7 @@
 .archive-item {
   margin: 0;
   padding: 0;
-  border-bottom: 1px solid rgba($terminal-green, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
 
   &:last-child {
     border-bottom: none;
@@ -64,23 +48,18 @@
   align-items: baseline;
   padding: 0.6rem 0;
   text-decoration: none;
-  transition: all 0.2s ease;
+  transition: all 0.15s ease;
 
   &:hover {
-    padding-left: 0.5rem;
-
     .archive-title {
-      color: $terminal-green;
-    }
-
-    .archive-date {
-      color: $terminal-amber;
+      color: $terminal-text-bright;
     }
   }
 }
 
 .archive-date {
   font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
   color: $terminal-text-dim;
   flex-shrink: 0;
   margin-right: 1rem;
@@ -90,8 +69,9 @@
 .archive-title {
   color: $terminal-text;
   font-size: 0.95rem;
+  font-weight: 500;
   flex: 1;
-  transition: color 0.2s ease;
+  transition: color 0.15s ease;
 }
 
 // No results message
@@ -101,12 +81,7 @@
   color: $terminal-text-dim;
 
   h3 {
-    color: $terminal-amber;
+    color: $terminal-text-bright;
     margin-bottom: 0.5rem;
-
-    &::before {
-      content: "// ";
-      color: $terminal-gray-light;
-    }
   }
 }

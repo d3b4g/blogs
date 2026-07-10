@@ -1,26 +1,3 @@
-// Post listing - Terminal Theme
-.post-listing {
-  background-color: $terminal-gray;
-  position: absolute;
-  top: 400px;
-  z-index: 233;
-  width: 100%;
-  padding: 20px 20px 0;
-  -webkit-transform: translate3d(0, 0, 1px);
-  transform: translate3d(0, 0, 1px);
-
-  @include media-query($small-screen) {
-    padding: 50px 30px 0;
-  }
-
-  @include media-query($medium-screen) {
-    height: 100vh;
-    overflow-y: scroll;
-    position: initial;
-    top: 0;
-  }
-}
-
 .image-credit {
   float: right;
   font-weight: bold;
@@ -48,12 +25,11 @@ section.post {
   transition: all 0.3s ease;
 
   &:before {
-    content: "← ";
+    content: "  ";
   }
 
   &:hover {
     background: rgba($terminal-green, 0.1);
-    box-shadow: 0 0 15px $terminal-green-glow;
   }
 }
 
@@ -71,7 +47,6 @@ section.post {
   &:hover,
   &:focus {
     color: $terminal-green;
-    text-shadow: 0 0 8px $terminal-green-glow;
   }
 }
 
@@ -97,22 +72,11 @@ section.post {
 
     &:hover {
       color: $terminal-green;
-      text-shadow: 0 0 5px $terminal-green-glow;
     }
   }
 
   .read-time {
-    color: $terminal-green;
-
-    &:before {
-      content: "[";
-      color: $terminal-text-dim;
-    }
-
-    &:after {
-      content: "]";
-      color: $terminal-text-dim;
-    }
+    color: $terminal-text-dim;
   }
 }
 
@@ -128,7 +92,6 @@ a.read-more {
 
   &:hover {
     background: rgba($terminal-green, 0.1);
-    box-shadow: 0 0 10px $terminal-green-glow;
   }
 }
 
@@ -143,51 +106,25 @@ a.read-more {
 
 #post h1 {
   margin: 0.5em 0 1em;
-  color: $terminal-green;
-  text-shadow: 0 0 15px $terminal-green-glow;
+  color: $terminal-text-bright;
 }
 
 #post h2 {
   margin: 2em 0 0.8em;
   padding-bottom: 0.7em;
-  border-bottom: 1px solid rgba($terminal-green, 0.3);
-  color: $terminal-amber;
-
-  &:before {
-    content: "## ";
-    color: $terminal-amber-dim;
-  }
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  color: $terminal-text-bright;
 }
 
 #post h3 {
   margin: 1.75em 0 1.2em;
   position: relative;
-  color: $terminal-cyan;
-
-  &:before {
-    content: "### ";
-    color: rgba($terminal-cyan, 0.5);
-  }
+  color: $terminal-text-bright;
 }
 
 #page {
   padding-bottom: 50px;
   min-height: 70vh;
-
-  .page-header {
-    margin: 0 auto 50px;
-
-    h2 {
-      color: $terminal-green;
-      font-family: $font-family-terminal;
-      text-shadow: 0 0 10px $terminal-green-glow;
-
-      &:before {
-        content: "> ";
-        color: $terminal-green-dim;
-      }
-    }
-  }
 }
 
 .post-navigation {
@@ -326,7 +263,6 @@ a.read-more {
 
   &:hover {
     background-color: rgba($terminal-amber, 0.1);
-    box-shadow: 0 0 10px $terminal-amber-glow;
   }
 }
 
@@ -342,7 +278,6 @@ a.read-more {
 
   &:hover {
     background-color: rgba($terminal-amber, 0.1);
-    box-shadow: 0 0 10px $terminal-amber-glow;
   }
 }
 
@@ -358,6 +293,5 @@ a.read-more {
 
   &:hover {
     background-color: rgba($terminal-green, 0.1);
-    box-shadow: 0 0 10px $terminal-green-glow;
   }
 }
