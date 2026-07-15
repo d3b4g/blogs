@@ -302,6 +302,43 @@ layout: default
     color: #8a8f98;
   }
 
+  /* Tables */
+  .post-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5em 0;
+    font-size: 0.875em;
+    display: block;
+    overflow-x: auto;
+  }
+
+  .post-content thead {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  }
+
+  .post-content th {
+    text-align: left;
+    font-weight: 600;
+    color: #f7f8f8;
+    padding: 0.6em 0.9em;
+    white-space: nowrap;
+  }
+
+  .post-content td {
+    padding: 0.6em 0.9em;
+    color: #d0d6e0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    vertical-align: top;
+  }
+
+  .post-content tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .post-content tbody tr:hover td {
+    background: rgba(255, 255, 255, 0.02);
+  }
+
   /* Post Footer */
   .post-footer {
     margin-top: 3rem;
