@@ -5,7 +5,7 @@
 #
 title: ptrace.net
 email: shabnoon@ptrace.net
-description: Attached to interesting processes. Notes on red teaming, binary exploitation, and infosec.
+description: Attached to interesting processes. I break things for a living. Increasingly, so do the machines.
 url: https://ptrace.net
 baseurl: ""
 keywords: ["blog", "jekyll"]
