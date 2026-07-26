@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "The Autonomy Ladder"
-date:   2026-07-17 09:00:00
+date:   2026-07-26 00:01:00
 categories: [Offensive AI]
 excerpt: "Every impressive agent demo is quietly running near the top of the ladder. A way to think about how much a security agent should do without a human in the loop, and where the line has to sit."
 comments: true
